@@ -80,4 +80,13 @@
   .no-line-boundary {
     border: none !important;
   }
+
+  /* Sidebar scrollbar */
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: theme('colors.surface-container-high');
+    border-radius: 10px;
+  }
 }

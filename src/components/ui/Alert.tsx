@@ -1,6 +1,6 @@
 
 
-interface AlertProps {
+export interface AlertProps {
   variant?: 'success' | 'error' | 'info' | 'warning';
   title: string;
   message: string;

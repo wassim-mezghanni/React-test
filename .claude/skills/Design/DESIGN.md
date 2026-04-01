@@ -1,3 +1,7 @@
+---
+name: design-guidance
+description: Core guidelines for the "Sovereign Curator" design system, enforcing soft minimalism, a "no-line" hierarchy, and high-contrast editorial typography.
+---
 # Design System Documentation: Financial Editorial
 
 ## 1. Overview & Creative North Star

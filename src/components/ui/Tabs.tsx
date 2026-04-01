@@ -1,12 +1,12 @@
 
 
-interface Tab {
+export interface Tab {
   id: string;
   label: string;
   icon?: string;
 }
 
-interface TabsProps {
+export interface TabsProps {
   tabs: Tab[];
   activeTabId: string;
   onChange: (tabId: string) => void;
