@@ -90,3 +90,34 @@
     border-radius: 10px;
   }
 }
+  /* Aurora Animations */
+  @keyframes aurora-pulse {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    33% { transform: translate(8px, -4px) scale(1.2); opacity: 0.45; }
+    66% { transform: translate(-6px, 6px) scale(0.9); opacity: 0.35; }
+  }
+
+  @keyframes aurora-color {
+    0%, 100% { background-color: #1A4D2E; }
+    50% { background-color: #008080; }
+  }
+
+  /* Slow rotation for the entire aurora container */
+  @keyframes aurora-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-aurora-pulse {
+    animation: aurora-pulse 10s ease-in-out infinite;
+  }
+
+  .animate-aurora-rotate {
+    animation: aurora-rotate 25s linear infinite;
+  }
+
+
+  .animate-aurora-color {
+    animation: aurora-color 12s ease-in-out infinite;
+  }
+
