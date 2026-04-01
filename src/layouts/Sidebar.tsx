@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NewProjectModal } from '../components/ui/NewProjectModal.tsx';
+import { ContextActions, type ContextAction } from '../components/ui/ContextActions.tsx';
 
 const navRoutes: Record<string, string> = {
   dashboard: '/',
@@ -40,6 +41,9 @@ export interface SidebarProps {
   panelTitle?: string;
   onChatSelect?: (id: string) => void;
   onProjectSelect?: (projectId: string, childId?: string) => void;
+  onRemoveProject?: (id: string) => void;
+  onRemoveChat?: (id: string) => void;
+  onMoveChatToProject?: (chatId: string) => void;
   className?: string;
 }
 
@@ -61,12 +65,31 @@ export default function Sidebar({
   panelTitle = 'Projects',
   onChatSelect,
   onProjectSelect,
+  onRemoveProject,
+  onRemoveChat,
+  onMoveChatToProject,
   className = '',
 }: SidebarProps) {
   const navigate = useNavigate();
   const [newProjectOpen, setNewProjectOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [menuConfig, setMenuConfig] = useState<{ 
+    id: string; 
+    position: { top: number; left: number }; 
+    actions: ContextAction[] 
+  } | null>(null);
+  
   const [expandedProjects, setExpandedProjects] = useState<Set<string>>(
     () => new Set(projects.filter(p => p.expanded).map(p => p.id))
+  );
+
+  const filteredProjects = projects.filter(p => 
+    p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    p.children?.some(c => c.label.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
+  const filteredChats = chats.filter(c => 
+    c.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const toggleProject = (id: string) => {
@@ -136,13 +159,15 @@ export default function Sidebar({
             className="w-full bg-surface-container-low/50 border border-outline-variant/10 rounded-lg py-1.5 pl-8 pr-3 text-xs font-label focus:outline-none focus:bg-surface-container-lowest focus:border-primary/20 transition-all"
             placeholder="Search"
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto space-y-1 pr-1 sidebar-scroll">
           {/* Project Folders */}
-          {projects.map(project => {
+          {filteredProjects.map(project => {
             const isExpanded = expandedProjects.has(project.id);
             return (
               <div
@@ -153,7 +178,7 @@ export default function Sidebar({
                 }
               >
                 <div
-                  className="flex items-center justify-between group cursor-pointer"
+                  className="flex items-center justify-between group cursor-pointer relative"
                   onClick={() => {
                     if (project.children?.length) toggleProject(project.id);
                     onProjectSelect?.(project.id);
@@ -172,11 +197,30 @@ export default function Sidebar({
                       )}
                     </div>
                   </div>
-                  {project.children && project.children.length > 0 && (
-                    <span className={`icon text-sm text-outline transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
-                      expand_more
-                    </span>
-                  )}
+                  
+                  <div className="flex items-center gap-1">
+                    {project.children && project.children.length > 0 && (
+                      <span className={`icon text-sm text-outline transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
+                        expand_more
+                      </span>
+                    )}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        setMenuConfig({
+                          id: project.id,
+                          position: { top: rect.bottom + 4, left: rect.left },
+                          actions: [
+                            { id: 'remove', label: 'Remove Project', icon: 'delete', danger: true, onClick: () => onRemoveProject?.(project.id) }
+                          ]
+                        });
+                      }}
+                      className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-surface-container-highest opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <span className="icon text-sm text-outline">more_horiz</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Children */}
@@ -203,24 +247,58 @@ export default function Sidebar({
           )}
 
           {/* Standalone Chats */}
-          {chats.length > 0 && (
+          {filteredChats.length > 0 && (
             <>
-              <div className="px-2 mb-2">
+              <div className="px-2 mb-2 mt-4">
                 <h3 className="text-[10px] font-bold text-outline uppercase tracking-wider font-label">Chats</h3>
               </div>
-              {chats.map(chat => (
-                <button
-                  key={chat.id}
-                  onClick={() => onChatSelect?.(chat.id)}
-                  className="w-full text-left p-2 hover:bg-surface-container-low/50 rounded-lg cursor-pointer transition-colors"
-                >
-                  <p className="text-[12px] font-medium text-on-surface-variant font-label">{chat.title}</p>
-                  <p className="text-[9px] text-outline font-label">{chat.time}</p>
-                </button>
+              {filteredChats.map(chat => (
+                <div key={chat.id} className="relative group">
+                  <button
+                    onClick={() => onChatSelect?.(chat.id)}
+                    className="w-full text-left p-2 hover:bg-surface-container-low/50 rounded-lg cursor-pointer transition-colors flex items-center justify-between"
+                  >
+                    <div>
+                      <p className="text-[12px] font-medium text-on-surface-variant font-label">{chat.title}</p>
+                      <p className="text-[9px] text-outline font-label">{chat.time}</p>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        setMenuConfig({
+                          id: chat.id,
+                          position: { top: rect.bottom + 4, left: rect.left },
+                          actions: [
+                            { id: 'move', label: 'Add to Project', icon: 'create_new_folder', onClick: () => onMoveChatToProject?.(chat.id) },
+                            { id: 'remove', label: 'Remove Chat', icon: 'delete', danger: true, onClick: () => onRemoveChat?.(chat.id) }
+                          ]
+                        });
+                      }}
+                      className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-surface-container-highest opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <span className="icon text-sm text-outline">more_horiz</span>
+                    </button>
+                  </button>
+                </div>
               ))}
             </>
           )}
+
+          {filteredProjects.length === 0 && filteredChats.length === 0 && searchQuery && (
+            <div className="p-4 text-center">
+              <p className="text-[11px] text-outline font-label">No results for "{searchQuery}"</p>
+            </div>
+          )}
         </div>
+
+        {menuConfig && (
+          <ContextActions 
+            actions={menuConfig.actions}
+            position={menuConfig.position}
+            onClose={() => setMenuConfig(null)}
+          />
+        )}
       </aside>
 
       <NewProjectModal

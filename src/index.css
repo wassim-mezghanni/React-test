@@ -7,30 +7,31 @@
   --color-primary-container: #1a4d2e;
   --color-on-primary: #ffffff;
   --color-on-primary-container: #88bd95;
-  
+
   --color-secondary-container: #cfe5d1;
   --color-on-secondary-container: #536757;
-  
+
   --color-surface: #f8f9fa;
   --color-surface-container-low: #f3f4f5;
   --color-surface-container-high: #e7e8e9;
   --color-surface-container-highest: #e1e3e4;
   --color-surface-container-lowest: #ffffff;
-  
+
   --color-on-surface: #191c1d;
   --color-on-surface-variant: #414942;
   --color-outline: #717971;
-  --color-outline-variant: hsla(120, 5%, 77%, 0.15); /* Ghost Border */
-  
+  --color-outline-variant: hsla(120, 5%, 77%, 0.15);
+  /* Ghost Border */
+
   --color-error: #ba1a1a;
-  
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-heading: 'Manrope', sans-serif;
-  
+
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
-  
+
   --shadow-ambient: 0 10px 30px -5px rgba(25, 28, 29, 0.05);
 }
 
@@ -58,7 +59,7 @@
   .glass {
     @apply bg-surface/70 backdrop-blur-xl border border-outline-variant;
   }
-  
+
   /* Material Symbols Helper */
   .icon {
     font-family: 'Material Symbols Outlined';
@@ -85,39 +86,75 @@
   .sidebar-scroll::-webkit-scrollbar {
     width: 4px;
   }
+
   .sidebar-scroll::-webkit-scrollbar-thumb {
     background: theme('colors.surface-container-high');
     border-radius: 10px;
   }
 }
-  /* Aurora Animations */
-  @keyframes aurora-pulse {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-    33% { transform: translate(8px, -4px) scale(1.2); opacity: 0.45; }
-    66% { transform: translate(-6px, 6px) scale(0.9); opacity: 0.35; }
+
+  /* Sovereign Orbit Animations */
+  @keyframes core-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.15; }
+    50% { transform: scale(1.15); opacity: 0.3; }
   }
 
-  @keyframes aurora-color {
-    0%, 100% { background-color: #1A4D2E; }
-    50% { background-color: #008080; }
+  @keyframes orbit-fade {
+    0%, 100% { opacity: 0.2; stroke-dashoffset: 0; }
+    50% { opacity: 0.4; stroke-dashoffset: 20; }
   }
 
-  /* Slow rotation for the entire aurora container */
-  @keyframes aurora-rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  .animate-core-pulse {
+    animation: core-pulse 6s ease-in-out infinite;
   }
 
-  .animate-aurora-pulse {
-    animation: aurora-pulse 10s ease-in-out infinite;
+  .animate-orbit-fade {
+    animation: orbit-fade 10s linear infinite;
   }
 
-  .animate-aurora-rotate {
-    animation: aurora-rotate 25s linear infinite;
+  /* Login Page Animations */
+  @keyframes pulse-glow {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(26, 77, 46, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px 10px rgba(26, 77, 46, 0.2); }
   }
 
-
-  .animate-aurora-color {
-    animation: aurora-color 12s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
   }
 
+  @keyframes data-pulse-up {
+    0% { bottom: 0%; opacity: 0; }
+    20% { opacity: 1; }
+    50% { bottom: 50%; opacity: 1; }
+    51% { opacity: 0; }
+    100% { bottom: 50%; opacity: 0; }
+  }
+
+  @keyframes data-pulse-branch-left {
+    0%, 50% { top: 50%; left: 50%; opacity: 0; }
+    51% { opacity: 1; }
+    100% { top: 15%; left: 15%; opacity: 0; }
+  }
+
+  @keyframes data-pulse-branch-right {
+    0%, 50% { top: 50%; left: 50%; opacity: 0; }
+    51% { opacity: 1; }
+    100% { top: 15%; left: 85%; opacity: 0; }
+  }
+
+  .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-float-delayed { animation: float 6s ease-in-out 3s infinite; }
+  .animate-data-pulse-up { animation: data-pulse-up 4s linear infinite; }
+  .animate-data-pulse-branch-left { animation: data-pulse-branch-left 4s linear infinite; }
+  .animate-data-pulse-branch-right { animation: data-pulse-branch-right 4s linear infinite; }
+
+  .hexagon {
+    clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+    background-size: 24px 24px;
+  }

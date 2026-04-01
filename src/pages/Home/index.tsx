@@ -21,6 +21,8 @@ import { BarChart } from '../../components/charts/BarChart.tsx';
 import { HeroBanner } from '../../components/ui/HeroBanner.tsx';
 import { Accordion } from '../../components/ui/Accordion.tsx';
 
+import { sidebarProjects, sidebarChats, defaultUser } from '../../mocks/sidebarMock.ts';
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState('overview');
   const [currentPage, setCurrentPage] = useState(1);
@@ -105,38 +107,13 @@ export default function Home() {
     }
   ];
 
-  const sidebarProjects = [
-    {
-      id: 'q3-review',
-      name: 'Q3 Financial Review',
-      subLabel: 'Recent',
-      expanded: true,
-      children: [
-        { id: 'initial', label: 'Initial Analysis' },
-        { id: 'budget', label: 'Budget Breakdown' },
-        { id: 'savings', label: 'Savings Plan' },
-      ],
-    },
-    { id: 'portfolio', name: 'Investment Portfolio', subLabel: '3 chats' },
-  ];
-
-  const sidebarChats = [
-    { id: '1', title: 'Retirement Savings Plan', time: '2h ago' },
-    { id: '2', title: 'Budget Optimization', time: '5h ago' },
-    { id: '3', title: 'Expense Tracking Setup', time: 'Yesterday' },
-    { id: '4', title: 'Emergency Fund Goals', time: 'Oct 12' },
-  ];
-
   return (
     <AppLayout
+
       activeNavId="dashboard"
       projects={sidebarProjects}
       chats={sidebarChats}
-      user={{
-        name: 'Wassim M',
-        email: 'wassim@querai.com',
-        avatarUrl: '',
-      }}
+      user={defaultUser}
     >
       <div className="p-8 pb-20 max-w-7xl mx-auto">
         <header className="mb-16">

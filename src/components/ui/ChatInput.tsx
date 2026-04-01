@@ -24,7 +24,7 @@ const modeOptions: DropdownOption[] = [
 
 export function ChatInput({
   onSend,
-  placeholder = 'Ask Sovereign AI...',
+  placeholder = 'Ask anything ',
   suggestions = [],
   className = '',
 }: ChatInputProps) {

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#00361a",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#6a323b",
+              "secondary": "#4f6353",
+              "primary-fixed": "#b8f0c5",
+              "surface-container": "#edeeef",
+              "on-secondary-fixed-variant": "#384b3c",
+              "on-secondary-container": "#536757",
+              "on-primary-fixed": "#00210e",
+              "surface-tint": "#366847",
+              "on-tertiary-fixed-variant": "#6e353e",
+              "on-surface-variant": "#414942",
+              "inverse-on-surface": "#f0f1f2",
+              "tertiary-fixed": "#ffd9dd",
+              "surface": "#f8f9fa",
+              "on-background": "#191c1d",
+              "surface-container-highest": "#e1e3e4",
+              "surface-variant": "#e1e3e4",
+              "on-secondary-fixed": "#0d1f13",
+              "primary-fixed-dim": "#9dd3aa",
+              "secondary-container": "#cfe5d1",
+              "on-error-container": "#93000a",
+              "primary-container": "#1a4d2e",
+              "surface-dim": "#d9dadb",
+              "on-tertiary-container": "#e89ca5",
+              "on-primary-container": "#88bd95",
+              "error": "#ba1a1a",
+              "surface-container-high": "#e7e8e9",
+              "outline": "#717971",
+              "inverse-primary": "#9dd3aa",
+              "surface-bright": "#f8f9fa",
+              "surface-container-low": "#f3f4f5",
+              "on-tertiary": "#ffffff",
+              "tertiary": "#4f1c26",
+              "on-error": "#ffffff",
+              "secondary-fixed": "#d2e8d4",
+              "outline-variant": "#c1c9bf",
+              "background": "#f8f9fa",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed-dim": "#b6ccb8",
+              "inverse-surface": "#2e3132",
+              "tertiary-fixed-dim": "#ffb2bb",
+              "on-secondary": "#ffffff",
+              "on-surface": "#191c1d",
+              "on-tertiary-fixed": "#380b15",
+              "on-primary-fixed-variant": "#1d5031",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            animation: {
+                'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+                'float': 'float 6s ease-in-out infinite',
+                'float-delayed': 'float 6s ease-in-out 3s infinite',
+                'data-pulse-up': 'data-pulse-up 4s linear infinite',
+                'data-pulse-branch-left': 'data-pulse-branch-left 4s linear infinite',
+                'data-pulse-branch-right': 'data-pulse-branch-right 4s linear infinite',
+            },
+            keyframes: {
+                'pulse-glow': {
+                    '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(26, 77, 46, 0.4)' },
+                    '50%': { transform: 'scale(1.05)', boxShadow: '0 0 30px 10px rgba(26, 77, 46, 0.2)' },
+                },
+                'float': {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-15px)' },
+                },
+                'data-pulse-up': {
+                    '0%': { bottom: '0%', opacity: '0' },
+                    '20%': { opacity: '1' },
+                    '50%': { bottom: '50%', opacity: '1' },
+                    '51%': { opacity: '0' },
+                    '100%': { bottom: '50%', opacity: '0' }
+                },
+                'data-pulse-branch-left': {
+                    '0%, 50%': { top: '50%', left: '50%', opacity: '0' },
+                    '51%': { opacity: '1' },
+                    '100%': { top: '15%', left: '15%', opacity: '0' }
+                },
+                'data-pulse-branch-right': {
+                    '0%, 50%': { top: '50%', left: '50%', opacity: '0' },
+                    '51%': { opacity: '1' },
+                    '100%': { top: '15%', left: '85%', opacity: '0' }
+                }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .dot-grid {
+            background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hexagon {
+            clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Auth Split Screen Container -->
+<main class="min-h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- Left Side: Login Area (50%) -->
+<section class="w-full md:w-1/2 bg-surface-container-lowest dot-grid relative flex flex-col items-center justify-center p-8 md:p-16 lg:p-24">
+<!-- Branding Header -->
+<div class="absolute top-12 left-12">
+<div class="flex items-center gap-2">
+<span class="text-primary-container font-headline font-extrabold text-2xl tracking-tighter">Querai</span>
+</div>
+</div>
+<!-- Login Form Card -->
+<div class="w-full max-w-md space-y-10 relative z-10">
+<header class="space-y-3">
+<h1 class="text-4xl font-headline font-extrabold text-on-surface tracking-tight leading-tight">Welcome back to the future of finance.</h1>
+<p class="text-on-surface-variant font-body text-lg">Sign in to your financial command center.</p>
+</header>
+<form class="space-y-6">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="block font-label text-xs uppercase tracking-widest font-bold text-on-surface-variant" for="email">Work Email</label>
+<div class="relative group">
+<input class="w-full h-14 px-4 bg-surface-container-high border-none rounded-lg focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest text-on-surface transition-all duration-200" id="email" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="block font-label text-xs uppercase tracking-widest font-bold text-on-surface-variant" for="password">Password</label>
+<a class="text-xs font-semibold text-primary-container hover:underline transition-all" href="#">Forgot?</a>
+</div>
+<div class="relative group">
+<input class="w-full h-14 px-4 bg-surface-container-high border-none rounded-lg focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest text-on-surface transition-all duration-200" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<!-- CTA Button -->
+<button class="w-full h-14 bg-primary-container hover:bg-primary text-on-primary font-headline font-bold text-lg rounded-full flex items-center justify-center gap-2 shadow-lg shadow-primary-container/20 transition-all duration-300 transform active:scale-[0.98]" type="submit">
+                        Sign In
+                        <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Links within Login Side -->
+<div class="pt-8 border-t border-outline-variant/15 flex flex-col gap-4">
+<button class="w-full h-12 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-semibold rounded-lg flex items-center justify-center gap-3 transition-colors">
+<span class="material-symbols-outlined">key</span>
+                        Single Sign-On (SSO)
+                    </button>
+<p class="text-center text-on-surface-variant text-sm">
+                        Don't have an account? <a class="text-primary-container font-bold hover:underline" href="#">Request Access</a>
+</p>
+</div>
+</div>
+<!-- Absolute Bottom Legal Decor -->
+<div class="absolute bottom-8 left-12 right-12 flex justify-between items-center opacity-40 pointer-events-none">
+<span class="font-label text-[10px] uppercase tracking-widest font-medium">© 2024 QUERAI FINANCIAL AI</span>
+<span class="font-label text-[10px] uppercase tracking-widest font-medium">VERSION 2.4.0</span>
+</div>
+</section>
+<!-- Right Side: Visualization Area (50%) -->
+<section class="hidden md:flex w-1/2 bg-[#EEF2FF] relative items-center justify-center p-12 overflow-hidden">
+<!-- Background Decorative Blurs -->
+<div class="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-white/40 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary-container/5 blur-[120px] rounded-full"></div>
+<!-- Content Container -->
+<div class="relative z-10 w-full max-w-2xl text-center space-y-12">
+<!-- Visualization Area -->
+<div class="relative aspect-square max-w-lg mx-auto flex items-center justify-center">
+<!-- SVG Background Lines (Flow Paths) -->
+<svg class="absolute inset-0 w-full h-full opacity-10 pointer-events-none" viewbox="0 0 400 400">
+<!-- Main Central vertical -->
+<path d="M200,320 L200,200" fill="none" stroke="#1a4d2e" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- Branch Left -->
+<path d="M200,200 L80,80" fill="none" stroke="#1a4d2e" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- Branch Right -->
+<path d="M200,200 L320,80" fill="none" stroke="#1a4d2e" stroke-dasharray="4 4" stroke-width="2"></path>
+</svg>
+<!-- Data Pulse Elements -->
+<div class="absolute inset-0 pointer-events-none overflow-visible">
+<!-- Upward Pulses -->
+<div class="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-primary-container rounded-full animate-data-pulse-up"></div>
+<div class="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-primary-container rounded-full animate-data-pulse-up delay-1000"></div>
+<div class="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-primary-container rounded-full animate-data-pulse-up delay-2000"></div>
+<!-- Branch Pulses (Left) -->
+<div class="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-branch-left delay-[2000ms]"></div>
+<!-- Branch Pulses (Right) -->
+<div class="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-branch-right delay-[2000ms]"></div>
+</div>
+<div class="w-full h-full relative">
+<!-- Central AI Engine Node (Hexagon) -->
+<div class="absolute inset-0 flex items-center justify-center z-30">
+<div class="w-40 h-40 hexagon bg-primary-container shadow-2xl flex items-center justify-center transform animate-pulse-glow">
+<span class="material-symbols-outlined text-6xl text-on-primary" data-weight="fill">hub</span>
+</div>
+</div>
+<!-- SAP Source Node (Bottom) -->
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 animate-float-delayed">
+<div class="bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-outline-variant/10">
+<div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined">database</span>
+</div>
+<div class="text-left">
+<p class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">SAP S/4HANA</p>
+<p class="text-xs font-semibold">Financial Ledger</p>
+</div>
+</div>
+</div>
+<!-- Efficiency Insight Node (Top Left) -->
+<div class="absolute top-0 left-0 z-20 animate-float">
+<div class="bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-outline-variant/10">
+<div class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div class="text-left">
+<p class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Efficiency</p>
+<p class="text-xs font-semibold">+18.5% Boost</p>
+</div>
+</div>
+</div>
+<!-- Prediction Insight Node (Top Right) -->
+<div class="absolute top-0 right-0 z-20 animate-float-delayed">
+<div class="bg-primary-container p-5 rounded-2xl shadow-2xl text-on-primary">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-sm">colors_spark</span>
+<p class="text-[10px] font-bold uppercase tracking-widest opacity-80">AI Prediction</p>
+</div>
+<p class="text-sm font-headline font-bold">Optimization Potential: 12%</p>
+</div>
+</div>
+<!-- Abstract Background Texture -->
+<div class="absolute inset-0 z-0 opacity-20">
+<img alt="Abstract data flow visualization" class="w-full h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFLlufd4EAuAJsRcURLV06VREIClwvsniP1rK8W97wygbt9aaFyoUs6ydxx4jRmcZP4CrbML-5KeYZ5-HEFUzOodmGwDa0Utaq3ZNHaKQKoWPf6g9JjloY9QbHVmA1fhXuie4hwvclxr8EeAaBqklnmWDc-uxHseOELgVjaZKOEYV__YDMDELzJmPsRmKvTHKjB-Abav-J6nXYlVUXkZPmy8_aEw8ylr_RXpQ-zPHl0WBDK1Llfh-141Mjmz5w-rvISFax7aRPIzLO"/>
+</div>
+</div>
+</div>
+<!-- Descriptive Text for Visualization -->
+<div class="space-y-4 px-12">
+<h3 class="text-2xl font-headline font-extrabold text-primary-container tracking-tight">Enterprise Intelligence, Human Intuition.</h3>
+<p class="text-on-secondary-fixed-variant font-body leading-relaxed max-w-sm mx-auto">
+                        Querai bridges the gap between complex SAP datasets and actionable executive clarity through proprietary neural forecasting.
+                    </p>
+</div>
+</div>
+<!-- Visual Texture Overlay -->
+<div class="absolute inset-0 pointer-events-none dot-grid opacity-[0.03]"></div>
+</section>
+</main>
+</body></html>
