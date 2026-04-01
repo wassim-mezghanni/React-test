@@ -1,5 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NewProjectModal } from '../components/ui/NewProjectModal.tsx';
+
+const navRoutes: Record<string, string> = {
+  dashboard: '/',
+  data: '/data',
+  chat: '/chat',
+  tables: '/tables',
+  analytics: '/analytics',
+  workflows: '/workflows',
+};
 
 export interface SidebarNavItem {
   id: string;
@@ -53,6 +63,7 @@ export default function Sidebar({
   onProjectSelect,
   className = '',
 }: SidebarProps) {
+  const navigate = useNavigate();
   const [newProjectOpen, setNewProjectOpen] = useState(false);
   const [expandedProjects, setExpandedProjects] = useState<Set<string>>(
     () => new Set(projects.filter(p => p.expanded).map(p => p.id))
@@ -77,7 +88,7 @@ export default function Sidebar({
             <button
               key={item.id}
               title={item.label}
-              onClick={() => onNavChange?.(item.id)}
+              onClick={() => { navigate(navRoutes[item.id] ?? '/'); onNavChange?.(item.id); }}
               className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${
                 isActive
                   ? 'bg-primary-container/15 text-primary/80'
@@ -137,7 +148,7 @@ export default function Sidebar({
               <div
                 key={project.id}
                 className={isExpanded
-                  ? 'bg-primary-container/20 rounded-lg p-2 border border-primary-container/10'
+                  ? 'bg-primary-container/10 rounded-lg p-2 border border-primary-container/5'
                   : 'p-2 hover:bg-surface-container-low/50 rounded-lg cursor-pointer transition-colors'
                 }
               >
