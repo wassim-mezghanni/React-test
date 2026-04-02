@@ -154,6 +154,16 @@
     clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
   }
 
+  /* Orbiting dot */
+  @keyframes orbit {
+    from { transform: rotate(0deg) translateX(56px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(56px) rotate(-360deg); }
+  }
+
+  .orbiting-dot {
+    animation: orbit 4s linear infinite;
+  }
+
   .dot-grid {
     background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
     background-size: 24px 24px;

@@ -79,7 +79,7 @@ export default function Login() {
                   </div>
                   <div className="text-left">
                     <p className="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Efficiency</p>
-                    <p className="text-xs font-semibold">+18.5% Boost</p>
+                    <p className="text-xs font-semibold">+30.5% Boost</p>
                   </div>
                 </div>
               </div>
@@ -96,14 +96,13 @@ export default function Login() {
               </div>
             </div>
           </div>
-
           {/* Description */}
           <div className="space-y-4 px-12">
             <h3 className="text-2xl font-heading font-extrabold text-primary-container tracking-tight">
-              Enterprise Intelligence, Human Intuition.
+              Enterprise Intelligence
             </h3>
             <p className="text-on-surface-variant leading-relaxed max-w-sm mx-auto">
-              Querai bridges the gap between complex SAP datasets and actionable executive clarity through proprietary neural forecasting.
+              Querai bridges the gap between complex SAP datasets and actionable executive clarity through proprietary neural forecasting and analytics.
             </p>
           </div>
         </div>

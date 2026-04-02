@@ -36,48 +36,31 @@ export default function Chat({ user = defaultUser }: ChatProps) {
       <div className="flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-12 flex flex-col items-center">
-          {/* Pulsing Aurora Visual */}
-          <div className="relative w-64 h-64 mb-8 flex items-center justify-center">
-            {/* The Sovereign Orbit Visual */}
-            <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 200 200" fill="none">
-              {/* AI Core Glow */}
-              <circle cx="100" cy="100" r="45" className="fill-primary/5 animate-core-pulse" />
-              <circle cx="100" cy="100" r="35" className="fill-primary/10 animate-core-pulse" style={{ animationDelay: '-3s' }} />
-              
-              {/* Orbital Paths */}
-              <g className="opacity-20">
-                <ellipse cx="100" cy="100" rx="85" ry="32" stroke="currentColor" className="text-primary animate-orbit-fade" strokeWidth="0.5" transform="rotate(-12 100 100)" />
-                <ellipse cx="100" cy="100" rx="65" ry="42" stroke="currentColor" className="text-primary animate-orbit-fade" strokeWidth="0.5" transform="rotate(25 100 100)" />
-              </g>
+          {/* Sovereign Orbit Visual */}
+          <div className="relative w-32 h-32 mb-8 flex items-center justify-center">
+            {/* Outer ambient glow */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/10 via-emerald-500/10 to-teal-500/10 blur-3xl animate-pulse" />
 
-              {/* Orbiting Pearls */}
-              <g transform="rotate(-12 100 100)">
-                <circle r="3.5" className="fill-primary shadow-ambient">
-                  <animateMotion 
-                    dur="10s" 
-                    repeatCount="indefinite" 
-                    path="M 15,100 a 85,32 0 1,0 170,0 a 85,32 0 1,0 -170,0"
-                  />
-                </circle>
-              </g>
-              <g transform="rotate(25 100 100)">
-                <circle r="2.5" className="fill-primary-container shadow-ambient">
-                  <animateMotion 
-                    dur="14s" 
-                    repeatCount="indefinite" 
-                    path="M 35,100 a 65,42 0 1,0 130,0 a 65,42 0 1,0 -130,0"
-                    begin="-7s"
-                  />
-                </circle>
-              </g>
-            </svg>
-            
-            {/* Central Icon Container (AI Core) */}
-            <div className="relative z-10 w-20 h-20 rounded-full bg-surface-container-lowest border border-outline-variant shadow-ambient flex items-center justify-center overflow-hidden transition-transform duration-700 hover:scale-105 active:scale-95 cursor-pointer group">
-               <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors" />
-               <div className="relative z-10 w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center group-hover:bg-primary-container/30 transition-colors">
-                 <span className="icon text-primary text-2xl animate-pulse">auto_awesome</span>
-               </div>
+            {/* Sphere with spinning radial gradients */}
+            <div className="relative w-24 h-24 rounded-full bg-white/5 backdrop-blur-md border border-white/20 shadow-[0_0_30px_rgba(26,77,46,0.1)] flex items-center justify-center overflow-hidden group cursor-pointer transition-transform duration-700 hover:scale-105 active:scale-95">
+              {/* Spinning gradient layers */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#1A4D2E,transparent_60%)] mix-blend-screen opacity-40 animate-[spin_10s_linear_infinite]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,#4F6F52,transparent_60%)] mix-blend-screen opacity-40 animate-[spin_15s_linear_infinite_reverse]" />
+
+              {/* AI Core Icon */}
+              <div className="relative z-10 w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center group-hover:bg-primary-container/30 transition-colors">
+                <span className="icon text-primary text-2xl animate-pulse">auto_awesome</span>
+              </div>
+
+              {/* Rotating dashed ring */}
+              <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="white" strokeWidth="0.3" strokeDasharray="2 4" className="animate-[spin_25s_linear_infinite]" />
+              </svg>
+            </div>
+
+            {/* Orbiting dot */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="orbiting-dot w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(26,77,46,0.4)]" />
             </div>
           </div>
 
