@@ -5,9 +5,11 @@ import { ContextActions, type ContextAction } from '../components/ui/ContextActi
 
 const navRoutes: Record<string, string> = {
   dashboard: '/',
-  data: '/data',
   chat: '/chat',
+  selection: '/selection',
   tables: '/tables',
+  library: '/library',
+  data: '/data',
   analytics: '/analytics',
   workflows: '/workflows',
 };
@@ -49,9 +51,11 @@ export interface SidebarProps {
 
 const defaultNavItems: SidebarNavItem[] = [
   { id: 'dashboard', icon: 'grid_view', label: 'Dashboard' },
-  { id: 'data', icon: 'home_storage', label: 'Data' },
   { id: 'chat', icon: 'chat_bubble', label: 'Chat' },
+  { id: 'selection', icon: 'checklist', label: 'Selection' },
   { id: 'tables', icon: 'table_rows', label: 'Tables' },
+  { id: 'library', icon: 'style', label: 'Library' },
+  { id: 'data', icon: 'home_storage', label: 'Data' },
   { id: 'analytics', icon: 'leaderboard', label: 'Analytics' },
   { id: 'workflows', icon: 'account_tree', label: 'Workflows' },
 ];
@@ -73,22 +77,22 @@ export default function Sidebar({
   const navigate = useNavigate();
   const [newProjectOpen, setNewProjectOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [menuConfig, setMenuConfig] = useState<{ 
-    id: string; 
-    position: { top: number; left: number }; 
-    actions: ContextAction[] 
+  const [menuConfig, setMenuConfig] = useState<{
+    id: string;
+    position: { top: number; left: number };
+    actions: ContextAction[]
   } | null>(null);
-  
+
   const [expandedProjects, setExpandedProjects] = useState<Set<string>>(
     () => new Set(projects.filter(p => p.expanded).map(p => p.id))
   );
 
-  const filteredProjects = projects.filter(p => 
+  const filteredProjects = projects.filter(p =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     p.children?.some(c => c.label.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  const filteredChats = chats.filter(c => 
+  const filteredChats = chats.filter(c =>
     c.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -112,11 +116,10 @@ export default function Sidebar({
               key={item.id}
               title={item.label}
               onClick={() => { navigate(navRoutes[item.id] ?? '/'); onNavChange?.(item.id); }}
-              className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${
-                isActive
-                  ? 'bg-primary-container/15 text-primary/80'
-                  : 'text-outline/40 hover:text-primary/70 hover:bg-primary-container/10'
-              }`}
+              className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${isActive
+                ? 'bg-primary-container/15 text-primary/80'
+                : 'text-outline/40 hover:text-primary/70 hover:bg-primary-container/10'
+                }`}
             >
               <span className="icon text-xl">{item.icon}</span>
             </button>
@@ -197,7 +200,7 @@ export default function Sidebar({
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-1">
                     {project.children && project.children.length > 0 && (
                       <span className={`icon text-sm text-outline transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
@@ -293,7 +296,7 @@ export default function Sidebar({
         </div>
 
         {menuConfig && (
-          <ContextActions 
+          <ContextActions
             actions={menuConfig.actions}
             position={menuConfig.position}
             onClose={() => setMenuConfig(null)}

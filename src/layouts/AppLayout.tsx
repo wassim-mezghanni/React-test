@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import Navbar, { type NavbarUser } from './Navbar.tsx';
 import Sidebar, { type SidebarProps } from './Sidebar.tsx';
+import { ChatBubble } from '../components/ui/ChatBubble.tsx';
 
 export interface AppLayoutProps extends SidebarProps {
   children: ReactNode;
@@ -24,12 +25,14 @@ export default function AppLayout({
         {children}
       </main>
 
+      <ChatBubble />
+
       {/* Footer */}
       {footer !== undefined ? footer : (
         <footer className="ml-[calc(50px+14rem)] border-t border-outline-variant/10 py-4 px-8">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <span className="text-[10px] text-outline font-label font-medium">
-              &copy; 2026 Querai. Sovereign Curator AI.
+              &copy; 2026 Querai.
             </span>
             <div className="flex gap-6">
               <span className="text-[10px] text-outline hover:text-primary transition-colors cursor-pointer font-label">Privacy Policy</span>

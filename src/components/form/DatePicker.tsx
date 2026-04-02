@@ -64,11 +64,11 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(({
   defaultValue,
   onChange,
   name,
-  ...props
 }, ref) => {
   // Handle string values (YYYY-MM-DD or similar) -> Date
   const valString = (value !== undefined ? value : defaultValue) as string;
-  const parsedDate = valString ? parseISO(valString) : null;
+  const parsed = valString ? parseISO(valString) : null;
+  const parsedDate = parsed && !isNaN(parsed.getTime()) ? parsed : null;
 
   const handleChange = (newValue: Date | null) => {
     if (onChange) {
@@ -104,9 +104,24 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(({
             onChange={handleChange}
             slotProps={{
               popper: {
+                placement: 'bottom-start',
+                disablePortal: false,
+                modifiers: [
+                  {
+                    name: 'flip',
+                    enabled: true,
+                    options: { fallbackPlacements: ['top-start', 'bottom-end', 'top-end'] },
+                  },
+                  {
+                    name: 'preventOverflow',
+                    enabled: true,
+                    options: { boundary: 'viewport', altAxis: true, padding: 8 },
+                  },
+                ],
                 sx: {
+                  zIndex: 1500,
                   '& .MuiPaper-root': {
-                    boxShadow: '0 10px 30px -5px rgba(25, 28, 29, 0.05)',
+                    boxShadow: '0 10px 30px -5px rgba(25, 28, 29, 0.1)',
                     borderRadius: '16px',
                     border: '1px solid rgba(116, 119, 117, 0.15)',
                   }
@@ -117,7 +132,6 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(({
                 error: !!error,
                 name: name,
                 inputRef: ref,
-                inputProps: props
               }
             }}
           />
