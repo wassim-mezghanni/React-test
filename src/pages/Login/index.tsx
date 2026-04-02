@@ -26,16 +26,27 @@ export default function Login() {
       </section>
 
       {/* Right Side: Visualization */}
-      <section className="hidden md:flex w-1/2 bg-[#EEF2FF] relative items-center justify-center p-12 overflow-hidden">
+      <section className="hidden md:flex w-1/2 bg-gradient-to-br from-[#EEF2FF] via-white/50 to-primary/5 relative items-center justify-center p-12 overflow-hidden">
         {/* Background blurs */}
         <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-white/40 blur-[120px] rounded-full" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary-container/5 blur-[120px] rounded-full" />
+        {/* Radial vignette overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(255,255,255,0.2)_100%)] pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-2xl text-center space-y-12">
           {/* Visualization Area */}
           <div className="relative aspect-square max-w-lg mx-auto flex items-center justify-center">
-            {/* SVG Flow Paths */}
-            <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" viewBox="0 0 400 400">
+            {/* SVG Flow Paths — frosted light trails */}
+            <svg className="absolute inset-0 w-full h-full opacity-[0.15] pointer-events-none" viewBox="0 0 400 400">
+              <defs>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="2" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
               {/* Center → Bottom */}
               <path d="M200,320 L200,230" fill="none" stroke="#1a4d2e" strokeDasharray="4 4" strokeWidth="2" />
               {/* Center → Top Left */}
@@ -74,10 +85,10 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* Efficiency Node (Top Left) */}
+              {/* Efficiency Node (Top Left) — Glass Card */}
               <div className="absolute top-0 left-0 z-20 animate-float">
-                <div className="bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-outline-variant/10">
-                  <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600">
+                <div className="bg-white/60 backdrop-blur-lg p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-white/40">
+                  <div className="w-10 h-10 bg-emerald-50/80 rounded-lg flex items-center justify-center text-emerald-600">
                     <span className="icon">trending_up</span>
                   </div>
                   <div className="text-left">
@@ -87,9 +98,9 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* AI Prediction Node (Top Right) */}
+              {/* AI Prediction Node (Top Right) — Tinted Glass */}
               <div className="absolute top-0 right-0 z-20 animate-float-delayed">
-                <div className="bg-primary-container p-5 rounded-2xl shadow-2xl text-on-primary">
+                <div className="bg-primary-container/70 backdrop-blur-lg p-5 rounded-2xl shadow-2xl text-on-primary border border-white/10">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="icon text-sm">insights</span>
                     <p className="text-[10px] font-bold uppercase tracking-widest opacity-80">AI Prediction</p>
@@ -98,22 +109,21 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* CSV Import Node (Left) */}
+              {/* CSV Import Node (Left) — Glass Card */}
               <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 animate-float">
-                <div className="bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-outline-variant/10">
-                  <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600">
+                <div className="bg-white/60 backdrop-blur-lg p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-white/40">
+                  <div className="w-10 h-10 bg-amber-50/80 rounded-lg flex items-center justify-center text-amber-600">
                     <span className="icon">description</span>
                   </div>
                   <div className="text-left">
                     <p className="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">CSV Import</p>
-
                   </div>
                 </div>
               </div>
 
-              {/* Analytics Node (Right) */}
+              {/* Analytics Node (Right) — Tinted Glass */}
               <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 animate-float-delayed">
-                <div className="bg-primary-container p-5 rounded-2xl shadow-2xl text-on-primary">
+                <div className="bg-primary-container/70 backdrop-blur-lg p-5 rounded-2xl shadow-2xl text-on-primary border border-white/10">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="icon text-sm">analytics</span>
                     <p className="text-[10px] font-bold uppercase tracking-widest opacity-80">Analysis</p>
@@ -122,10 +132,10 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* Database Node (Bottom Left) */}
+              {/* Database Node (Bottom Left) — Glass Card */}
               <div className="absolute bottom-0 left-0 z-20 animate-float-delayed">
-                <div className="bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-outline-variant/10">
-                  <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600">
+                <div className="bg-white/60 backdrop-blur-lg p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-white/40">
+                  <div className="w-10 h-10 bg-indigo-50/80 rounded-lg flex items-center justify-center text-indigo-600">
                     <span className="icon">storage</span>
                   </div>
                   <div className="text-left">
@@ -135,10 +145,10 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* SAP Node (Bottom Right) */}
+              {/* SAP Node (Bottom Right) — Glass Card */}
               <div className="absolute bottom-0 right-0 z-20 animate-float">
-                <div className="bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-outline-variant/10">
-                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                <div className="bg-white/60 backdrop-blur-lg p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-white/40">
+                  <div className="w-10 h-10 bg-blue-50/80 rounded-lg flex items-center justify-center text-blue-600">
                     <span className="icon">database</span>
                   </div>
                   <div className="text-left">
@@ -149,14 +159,11 @@ export default function Login() {
               </div>
             </div>
           </div>
-          {/* Description */}
-          <div className="space-y-4 px-12">
+          {/* Slogan — Glass Box */}
+          <div className="bg-white/30 backdrop-blur-md rounded-2xl p-8 border border-white/20 space-y-4">
             <h3 className="text-2xl font-heading font-extrabold text-primary-container tracking-tight">
-              Enterprise Intelligence
+              Predictive Clarity. Enterprise Intelligence. Quatelio Powered.
             </h3>
-            <p className="text-on-surface-variant leading-relaxed max-w-sm mx-auto">
-              Querai bridges the gap between complex SAP datasets and actionable executive clarity through proprietary neural forecasting and analytics.
-            </p>
           </div>
         </div>
 
