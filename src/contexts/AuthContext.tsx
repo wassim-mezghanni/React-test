@@ -1,11 +1,14 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import { UserRole } from '../types/auth.ts';
+import { clearToken } from '../services/api.ts';
 
 export interface SessionUser {
   id: string;
   name: string;
   email: string;
   role: UserRole;
+  default_company_code?: string;
+  default_currency?: string;
 }
 
 interface AuthContextValue {
@@ -30,7 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('querai_user');
+    clearToken();
   };
 
   return (

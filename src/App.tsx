@@ -6,6 +6,7 @@ import Selection from './pages/Selection/index.tsx';
 import Tables from './pages/Tables/index.tsx';
 import Library from './pages/Library/index.tsx';
 import Settings from './pages/Settings/index.tsx';
+import UseCaseDispatcher from './pages/Usecase/index.tsx';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/tables" element={<Tables />} />
         <Route path="/library" element={<Library />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/usecase/:id" element={<UseCaseDispatcher />} />
       </Routes>
     </BrowserRouter>
   );

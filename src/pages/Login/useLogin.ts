@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, type SessionUser } from '../../contexts/AuthContext.tsx';
+import { auth, setToken } from '../../services/api.ts';
 import { UserRole } from '../../types/auth.ts';
 
+// Mock fallback — used when the backend is unreachable
 const MOCK_ACCOUNTS: Record<string, { password: string; user: SessionUser }> = {
   'admin@quatelio.com': {
     password: 'admin123',
@@ -42,17 +44,33 @@ export function useLogin() {
     }
 
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
 
-    const account = MOCK_ACCOUNTS[email.toLowerCase()];
-    if (account && account.password === password) {
-      login(account.user);
+    try {
+      // Try real API first
+      const res = await auth.login(email, password);
+
+      setToken(res.auth_token);
+      login({
+        id: res.user_id,
+        name: res.full_name,
+        email,
+        role: res.role === 'admin' ? UserRole.ADMIN : UserRole.USER,
+        default_company_code: res.default_company_code,
+        default_currency: res.default_currency,
+      });
       navigate('/');
-    } else {
-      setError('Invalid email or password.');
+    } catch {
+      // Fallback to mock accounts when backend is unavailable
+      const account = MOCK_ACCOUNTS[email.toLowerCase()];
+      if (account && account.password === password) {
+        login(account.user);
+        navigate('/');
+      } else {
+        setError('Invalid email or password.');
+      }
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return { email, setEmail, password, setPassword, error, loading, handleLogin };

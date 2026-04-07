@@ -8,11 +8,14 @@ export interface AttachedFile {
   type: string;
 }
 
+export type ChatMode = 'usecase' | 'knowledge' | 'selection' | 'analysis';
+
 export interface ChatInputProps {
-  onSend?: (message: string, files: AttachedFile[]) => void;
+  onSend?: (message: string, files: AttachedFile[], mode: ChatMode) => void;
   placeholder?: string;
   suggestions?: string[];
   className?: string;
+  disabled?: boolean;
 }
 
 const modeOptions: DropdownOption[] = [
@@ -27,6 +30,7 @@ export function ChatInput({
   placeholder = 'Ask anything ',
   suggestions = [],
   className = '',
+  disabled = false,
 }: ChatInputProps) {
   const [message, setMessage] = useState('');
   const [mode, setMode] = useState('usecase');
@@ -63,7 +67,7 @@ export function ChatInput({
 
   const handleSubmit = () => {
     if (!message.trim() && files.length === 0) return;
-    onSend?.(message, files);
+    onSend?.(message, files, mode as ChatMode);
     setMessage('');
     setFiles([]);
   };
@@ -85,7 +89,8 @@ export function ChatInput({
           onChange={e => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-on-surface placeholder-outline px-1 py-1 text-base font-sans"
+          disabled={disabled}
+          className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-on-surface placeholder-outline px-1 py-1 text-base font-sans disabled:opacity-50"
         />
 
         {/* Attached Files */}

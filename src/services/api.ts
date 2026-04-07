@@ -1,9 +1,12 @@
-// ─────────────────────────────────────────────────────────────
-// Base API client — fetch wrapper with auth interceptor
-// ─────────────────────────────────────────────────────────────
+import { getMockMetadata } from '../mocks/metadataMock';
 
+// [BACKEND_INTEGRATION]: Update this URL to your production/staging API
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
 const TOKEN_KEY = 'querai_auth_token';
+
+// [BACKEND_INTEGRATION]: Set this to 'false' in your .env file (VITE_USE_MOCKS=false) 
+// to disable all frontend mocks and use real API calls.
+const USE_MOCKS = import.meta.env.VITE_USE_MOCKS !== 'false'; // Default to true for demo
 
 // ── Token helpers ────────────────────────────────────────────
 
@@ -32,7 +35,32 @@ interface RequestOptions {
 async function request<T>(path: string, opts: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, params, auth = true } = opts;
 
-  const url = new URL(path, BASE_URL);
+  // [BACKEND_INTEGRATION]: This block intercepts requests to provide mock data.
+  // When you have a working backend, you can remove this block entirely or rely 
+  // on the USE_MOCKS toggle above.
+  if (USE_MOCKS) {
+    // Metadata Mocks
+    if (path.startsWith('/metadata/')) {
+      const parts = path.split('/');
+      const source = parts[2];
+      const endpoint = parts[3];
+      return getMockMetadata(source, endpoint) as unknown as T;
+    }
+
+    // UC001 Execution Mock
+    if (path === '/usecase/UC_001/execute' && method === 'POST') {
+      return {
+        insight: "Analysis complete. Marketing variance (+45k) is driven by Q1 campaign overspend. R&D favorability (-12k) is due to delayed hiring in the architecture team.",
+        results: {
+          actual: 1200000,
+          budget: 1150000,
+          variance: 50000,
+        }
+      } as unknown as T;
+    }
+  }
+
+  const url = new URL(path.startsWith('/') ? path.slice(1) : path, BASE_URL);
   if (params) {
     Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
   }
@@ -46,25 +74,51 @@ async function request<T>(path: string, opts: RequestOptions = {}): Promise<T> {
     if (token) headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const res = await fetch(url.toString(), {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-  });
+  try {
+    const res = await fetch(url.toString(), {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
+    });
 
-  // 401 → clear session, redirect to login
-  if (res.status === 401) {
-    clearToken();
-    window.location.href = '/login';
-    throw new Error('Unauthorized');
+    if (res.status === 401) {
+      clearToken();
+      window.location.href = '/login';
+      throw new Error('Unauthorized');
+    }
+
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({ detail: res.statusText }));
+      throw error;
+    }
+
+    return res.json();
+  } catch (err) {
+    // [BACKEND_INTEGRATION]: This is a 'fail-over' mock. If the real backend call 
+    // fails (e.g. connection refused), it tries to serve mock data as a last resort.
+    // Turn off USE_MOCKS to see real network errors.
+    if (!USE_MOCKS) throw err;
+    
+    // Last-resort fallback for metadata if fetch fails (connection refused, etc.)
+    if (path.startsWith('/metadata/')) {
+      const parts = path.split('/');
+      return getMockMetadata(parts[2], parts[3]) as unknown as T;
+    }
+    
+    throw err;
   }
+}
 
-  if (!res.ok) {
-    const error = await res.json().catch(() => ({ detail: res.statusText }));
-    throw error;
+// ── Utilities ────────────────────────────────────────────────
+
+const MAX_ROWS = 500;
+
+function truncateData<T>(data: T[]): T[] {
+  if (data.length > MAX_ROWS) {
+    console.warn(`Data truncated to ${MAX_ROWS} rows.`);
+    return data.slice(0, MAX_ROWS);
   }
-
-  return res.json();
+  return data;
 }
 
 // ── Auth ─────────────────────────────────────────────────────
@@ -193,14 +247,23 @@ export const usecase = {
   schema: (usecaseId: string) =>
     request<Record<string, unknown>>(`/usecase/${usecaseId}/schema`),
 
-  execute: (usecaseId: string, data: Record<string, unknown>) =>
-    request<Record<string, unknown>>(`/usecase/${usecaseId}/execute`, { method: 'POST', body: data }),
+  execute: async (usecaseId: string, data: Record<string, unknown>) => {
+    const res = await request<any>(`/usecase/${usecaseId}/execute`, { method: 'POST', body: data });
+    if (res.results) {
+      Object.keys(res.results).forEach(key => {
+        if (Array.isArray(res.results[key].data)) {
+          res.results[key].data = truncateData(res.results[key].data);
+        }
+      });
+    }
+    return res;
+  },
 };
 
 // ── Query Builder ────────────────────────────────────────────
 
 export const query = {
-  execute: (data: {
+  execute: async (data: {
     session_id: string;
     service_url: string;
     entity_set: string;
@@ -211,12 +274,19 @@ export const query = {
     filters?: Record<string, string>;
     select?: string[];
     top?: number;
-  }) => request<{
-    url: string;
-    count: number;
-    error: string | null;
-    data: Record<string, unknown>[];
-  }>('/query/execute', { method: 'POST', body: data }),
+  }) => {
+    const res = await request<{
+      url: string;
+      count: number;
+      error: string | null;
+      data: Record<string, unknown>[];
+    }>('/query/execute', { method: 'POST', body: data });
+    
+    if (res.data) {
+      res.data = truncateData(res.data);
+    }
+    return res;
+  },
 
   valueHelp: (params: { service_url: string; collection_path: string; top?: string }) =>
     request<{
