@@ -31,7 +31,7 @@
 //
 // The frontend never touches SAP credentials after registration.
 
-type AuthToken = string;
+export type AuthToken = string;
 type SessionId = string; // UUID — one per conversation
 
 
