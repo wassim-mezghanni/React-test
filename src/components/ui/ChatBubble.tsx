@@ -35,7 +35,7 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
     },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   // Hide on the chat page
   if (location.pathname === '/chat') return null;
@@ -50,6 +50,15 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
       inputRef.current?.focus();
     }
   }, [open, messages]);
+
+  // [UX_IMPROVEMENT]: Auto-expand textarea height up to a maximum
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto';
+      const newHeight = Math.min(inputRef.current.scrollHeight, 120);
+      inputRef.current.style.height = `${newHeight}px`;
+    }
+  }, [message]);
 
   const handleSend = () => {
     if (!message.trim()) return;
@@ -86,7 +95,7 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
     <div className={`fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4 ${className}`}>
       {/* Chat Panel */}
       <div
-        className={`w-[380px] bg-surface-container-lowest/95 backdrop-blur-xl rounded-2xl shadow-[0_12px_48px_-8px_rgba(25,28,29,0.15)] border border-outline-variant overflow-hidden transition-all duration-300 origin-bottom-right ${
+        className={`w-[400px] bg-surface-container-lowest/95 backdrop-blur-xl rounded-2xl shadow-[0_12px_48px_-8px_rgba(25,28,29,0.15)] border border-outline-variant overflow-hidden transition-all duration-300 origin-bottom-right ${
           open
             ? 'scale-100 opacity-100 translate-y-0'
             : 'scale-90 opacity-0 translate-y-4 pointer-events-none'
@@ -128,16 +137,16 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
         </div>
 
         {/* Messages */}
-        <div className="h-80 overflow-y-auto px-4 py-4 space-y-3 sidebar-scroll">
+        <div className="h-[340px] overflow-y-auto px-4 py-4 space-y-3 sidebar-scroll">
           {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] px-4 py-2.5 text-sm leading-relaxed ${
+                className={`max-w-[85%] px-4 py-2.5 text-sm leading-relaxed ${
                   msg.role === 'user'
-                    ? 'bg-primary-container text-on-primary rounded-2xl rounded-br-md'
+                    ? 'bg-primary-container text-on-primary rounded-2xl rounded-br-md shadow-sm'
                     : 'bg-surface-container-high/60 text-on-surface rounded-2xl rounded-bl-md'
                 }`}
               >
@@ -148,10 +157,11 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
-        <div className="px-3 py-3 border-t border-outline-variant/10">
-          <div className="flex items-center gap-2 bg-surface-container-high/40 rounded-xl px-2 py-1.5 focus-within:bg-surface-container-high/60 transition-colors">
-            <Dropdown
+        {/* Improved Input Area */}
+        <div className="px-4 py-4 border-t border-outline-variant/10 bg-surface-container-low/30 space-y-3">
+          {/* Agent Selection Pill */}
+          <div className="flex items-center justify-between px-1">
+             <Dropdown
               options={modeOptions}
               value={mode}
               onChange={setMode}
@@ -159,21 +169,25 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
               className="scale-90 origin-left"
               placement="top"
             />
-            <input
+            <span className="text-[10px] text-outline font-medium uppercase tracking-widest opacity-60">Agent Mode</span>
+          </div>
+
+          <div className="flex items-end gap-2 bg-surface-container-high/50 rounded-2xl px-3 py-2.5 focus-within:bg-surface-container-high focus-within:shadow-[0_0_0_1px_rgba(26,77,46,0.1)] transition-all">
+            <textarea
               ref={inputRef}
-              type="text"
+              rows={1}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Type a message..."
-              className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-sm text-on-surface placeholder-outline font-sans"
+              placeholder="How can I assist you?"
+              className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-sm text-on-surface placeholder-outline/50 font-sans resize-none py-1 sidebar-scroll min-h-[24px]"
             />
             <button
               onClick={handleSend}
               disabled={!message.trim()}
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors disabled:opacity-30 shrink-0"
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-primary-container text-on-primary hover:bg-primary transition-all disabled:opacity-30 shrink-0 shadow-sm active:scale-95"
             >
-              <span className="icon text-base">send</span>
+              <span className="icon text-xl">send</span>
             </button>
           </div>
         </div>
