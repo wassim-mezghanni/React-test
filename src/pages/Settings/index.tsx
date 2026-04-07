@@ -12,6 +12,7 @@ import { UserRole } from '../../types/auth.ts';
 import { mockUsers } from '../../mocks/adminMock.ts';
 import type { AuthUser } from '../../mocks/adminMock.ts';
 import { useAuth } from '../../contexts/AuthContext.tsx';
+import { UserModal } from '../../components/ui/UserModal.tsx';
 
 function ProfileTab({ name, email }: { name: string; email: string }) {
   const [form, setForm] = useState({
@@ -134,7 +135,40 @@ function ConnectionsTab() {
 }
 
 function UsersTab() {
-  const [users] = useState<AuthUser[]>(mockUsers);
+  const [users, setUsers] = useState<AuthUser[]>(mockUsers);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<AuthUser | null>(null);
+
+  const handleSave = (data: any) => {
+    if (editingUser) {
+      setUsers(prev => prev.map(u =>
+        u.id === editingUser.id
+          ? { ...u, name: data.name, email: data.email, role: data.role }
+          : u
+      ));
+    } else {
+      const newUser: AuthUser = {
+        id: String(Date.now()),
+        name: data.name,
+        email: data.email,
+        role: data.role,
+        status: 'active',
+        lastSeen: 'Just now',
+      };
+      setUsers(prev => [newUser, ...prev]);
+    }
+    setEditingUser(null);
+    setModalOpen(false);
+  };
+
+  const handleEdit = (user: AuthUser) => {
+    setEditingUser(user);
+    setModalOpen(true);
+  };
+
+  const handleRemove = (userId: string) => {
+    setUsers(prev => prev.filter(u => u.id !== userId));
+  };
 
   const columns: ColumnDef<AuthUser>[] = [
     {
@@ -189,30 +223,40 @@ function UsersTab() {
       key: 'actions',
       label: '',
       align: 'right',
-      render: () => (
+      render: (_: unknown, row: AuthUser) => (
         <div className="flex justify-end gap-2">
-          <Button variant="secondary" icon="edit" className="!p-1.5" />
-          <Button variant="secondary" icon="more_horiz" className="!p-1.5" />
+          <Button variant="secondary" icon="edit" className="!p-1.5" onClick={() => handleEdit(row)} />
+          <Button variant="secondary" icon="delete" className="!p-1.5" onClick={() => handleRemove(row.id)} />
         </div>
       ),
     },
   ];
 
   return (
-    <DataTable
-      title="User Directory"
-      subtitle="QUATELIO ADMIN"
-      data={users}
-      columns={columns}
-      enableSearch
-      enableFilter
-      enableSorting
-      actions={
-        <Button variant="primary" icon="person_add">
-          Add User
-        </Button>
-      }
-    />
+    <>
+      <DataTable
+        title="User Directory"
+        subtitle="QUATELIO ADMIN"
+        data={users}
+        columns={columns}
+        enableSearch
+        enableFilter
+        enableSorting
+        actions={
+          <Button variant="primary" icon="person_add" onClick={() => setModalOpen(true)}>
+            Add User
+          </Button>
+        }
+      />
+      <UserModal
+        key={editingUser?.id ?? 'new'}
+        open={modalOpen}
+        onClose={() => { setModalOpen(false); setEditingUser(null); }}
+        onSave={handleSave}
+        initialData={editingUser}
+        mode={editingUser ? 'edit' : 'create'}
+      />
+    </>
   );
 }
 
