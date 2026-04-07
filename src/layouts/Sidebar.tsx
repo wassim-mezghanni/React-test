@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { NewProjectModal } from '../components/ui/NewProjectModal.tsx';
 import { ContextActions, type ContextAction } from '../components/ui/ContextActions.tsx';
 import { availableUseCases } from '../mocks/usecaseMock.ts';
+import { useSessionStore } from '../lib/store';
 
 const navRoutes: Record<string, string> = {
   dashboard: '/',
@@ -74,7 +75,9 @@ export default function Sidebar({
   className = '',
 }: SidebarProps) {
   const navigate = useNavigate();
-  const [activePanel, setActivePanel] = useState<'projects' | 'usecases'>('projects');
+  const location = useLocation();
+  const { activeSidebarPanel, setActiveSidebarPanel } = useSessionStore();
+
   const [newProjectOpen, setNewProjectOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [menuConfig, setMenuConfig] = useState<{
@@ -86,6 +89,14 @@ export default function Sidebar({
   const [expandedProjects, setExpandedProjects] = useState<Set<string>>(
     () => new Set(projects.filter(p => p.expanded).map(p => p.id))
   );
+
+  // [UX_IMPROVEMENT]: Automatically switch sidebar panel to 'usecases' 
+  // when navigating directly to a usecase page.
+  useEffect(() => {
+    if (location.pathname.startsWith('/usecase/') && activeSidebarPanel !== 'usecases') {
+      setActiveSidebarPanel('usecases');
+    }
+  }, [location.pathname, activeSidebarPanel, setActiveSidebarPanel]);
 
   const filteredProjects = projects.filter(p =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -115,14 +126,18 @@ export default function Sidebar({
       {/* Icon Rail */}
       <aside className="fixed left-0 top-14 h-[calc(100vh-56px)] z-40 bg-white/80 backdrop-blur-md border-r border-outline-variant/10 flex flex-col items-center py-4 gap-3 w-[50px]">
         {navItems.map(item => {
-          const isActive = item.id === activeNavId;
+          const isActive = item.id === activeNavId && activeSidebarPanel === 'projects';
           const route = navRoutes[item.id] ?? '/';
 
           return (
             <button
               key={item.id}
               title={item.label}
-              onClick={() => { navigate(route); onNavChange?.(item.id); }}
+              onClick={() => {
+                navigate(route);
+                onNavChange?.(item.id);
+                setActiveSidebarPanel('projects');
+              }}
               className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${isActive
                 ? 'bg-primary-container/15 text-primary/80'
                 : 'text-outline/40 hover:text-primary/70 hover:bg-primary-container/10'
@@ -138,8 +153,8 @@ export default function Sidebar({
         {/* Use Cases Toggle */}
         <button
           title="Use Cases"
-          onClick={() => setActivePanel(activePanel === 'usecases' ? 'projects' : 'usecases')}
-          className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${activePanel === 'usecases'
+          onClick={() => setActiveSidebarPanel('usecases')}
+          className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${activeSidebarPanel === 'usecases'
             ? 'bg-primary-container/20 text-primary shadow-sm'
             : 'text-outline/40 hover:text-primary/70 hover:bg-primary-container/10'
             }`}
@@ -160,9 +175,9 @@ export default function Sidebar({
         {/* Panel Header */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-sm font-bold text-on-surface font-headline">
-            {activePanel === 'projects' ? panelTitle : 'Use Cases'}
+            {activeSidebarPanel === 'projects' ? panelTitle : 'Use Cases'}
           </h2>
-          {activePanel === 'projects' && (
+          {activeSidebarPanel === 'projects' && (
             <div className="flex gap-2">
               <button
                 onClick={() => setNewProjectOpen(true)}
@@ -182,7 +197,7 @@ export default function Sidebar({
           <span className="icon absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
           <input
             className="w-full bg-surface-container-low/50 border border-outline-variant/10 rounded-lg py-1.5 pl-8 pr-3 text-xs font-label focus:outline-none focus:bg-surface-container-lowest focus:border-primary/20 transition-all"
-            placeholder={activePanel === 'projects' ? 'Search Projects' : 'Search Use Cases'}
+            placeholder={activeSidebarPanel === 'projects' ? 'Search Projects' : 'Search Use Cases'}
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -191,7 +206,7 @@ export default function Sidebar({
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto space-y-1 pr-1 sidebar-scroll">
-          {activePanel === 'projects' ? (
+          {activeSidebarPanel === 'projects' ? (
             <>
               {/* Project Folders */}
               {filteredProjects.map(project => {
@@ -345,8 +360,8 @@ export default function Sidebar({
             </div>
           )}
 
-          {((activePanel === 'projects' && filteredProjects.length === 0 && filteredChats.length === 0) ||
-            (activePanel === 'usecases' && filteredUseCases.length === 0)) && searchQuery && (
+          {((activeSidebarPanel === 'projects' && filteredProjects.length === 0 && filteredChats.length === 0) ||
+            (activeSidebarPanel === 'usecases' && filteredUseCases.length === 0)) && searchQuery && (
               <div className="p-4 text-center">
                 <p className="text-[11px] text-outline font-label">No results for "{searchQuery}"</p>
               </div>

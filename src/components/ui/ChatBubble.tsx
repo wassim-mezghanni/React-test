@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { Dropdown, type DropdownOption } from './Dropdown.tsx';
+
 export interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
@@ -12,10 +14,18 @@ export interface ChatBubbleProps {
   className?: string;
 }
 
+const modeOptions: DropdownOption[] = [
+  { id: 'usecase', label: 'UseCase', icon: 'apps' },
+  { id: 'knowledge', label: 'Knowledge', icon: 'menu_book' },
+  { id: 'selection', label: 'Selection', icon: 'checklist' },
+  { id: 'analysis', label: 'Analysis', icon: 'analytics' },
+];
+
 export function ChatBubble({ className = '' }: ChatBubbleProps) {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [mode, setMode] = useState('usecase');
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
@@ -58,7 +68,7 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
       const reply: ChatMessage = {
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: "I'm processing your request. This will be connected to the full chat engine soon.",
+        content: `I'm processing your request using the ${mode} agent. This will be connected to the full chat engine soon.`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, reply]);
@@ -139,8 +149,16 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
         </div>
 
         {/* Input */}
-        <div className="px-4 py-3 border-t border-outline-variant/10">
-          <div className="flex items-center gap-2 bg-surface-container-high/40 rounded-xl px-3 py-2 focus-within:bg-surface-container-high/60 transition-colors">
+        <div className="px-3 py-3 border-t border-outline-variant/10">
+          <div className="flex items-center gap-2 bg-surface-container-high/40 rounded-xl px-2 py-1.5 focus-within:bg-surface-container-high/60 transition-colors">
+            <Dropdown
+              options={modeOptions}
+              value={mode}
+              onChange={setMode}
+              icon="apps"
+              className="scale-90 origin-left"
+              placement="top"
+            />
             <input
               ref={inputRef}
               type="text"
@@ -153,7 +171,7 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
             <button
               onClick={handleSend}
               disabled={!message.trim()}
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors disabled:opacity-30"
+              className="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors disabled:opacity-30 shrink-0"
             >
               <span className="icon text-base">send</span>
             </button>

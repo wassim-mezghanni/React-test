@@ -12,9 +12,10 @@ export interface DropdownProps {
   onChange: (id: string) => void;
   icon?: string;
   className?: string;
+  placement?: 'top' | 'bottom';
 }
 
-export function Dropdown({ options, value, onChange, icon, className = '' }: DropdownProps) {
+export function Dropdown({ options, value, onChange, icon, className = '', placement = 'bottom' }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -41,7 +42,9 @@ export function Dropdown({ options, value, onChange, icon, className = '' }: Dro
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-1 min-w-[160px] bg-surface-container-lowest/95 backdrop-blur-xl rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-1 z-50 overflow-hidden">
+        <div className={`absolute left-0 min-w-[160px] bg-surface-container-lowest/95 backdrop-blur-xl rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] p-1 z-50 overflow-hidden ${
+          placement === 'top' ? 'bottom-full mb-2' : 'top-full mt-1'
+        }`}>
           {options.map(option => (
             <button
               key={option.id}

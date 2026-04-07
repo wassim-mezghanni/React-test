@@ -98,13 +98,13 @@ async function request<T>(path: string, opts: RequestOptions = {}): Promise<T> {
     // fails (e.g. connection refused), it tries to serve mock data as a last resort.
     // Turn off USE_MOCKS to see real network errors.
     if (!USE_MOCKS) throw err;
-    
+
     // Last-resort fallback for metadata if fetch fails (connection refused, etc.)
     if (path.startsWith('/metadata/')) {
       const parts = path.split('/');
       return getMockMetadata(parts[2], parts[3]) as unknown as T;
     }
-    
+
     throw err;
   }
 }
@@ -281,7 +281,7 @@ export const query = {
       error: string | null;
       data: Record<string, unknown>[];
     }>('/query/execute', { method: 'POST', body: data });
-    
+
     if (res.data) {
       res.data = truncateData(res.data);
     }
