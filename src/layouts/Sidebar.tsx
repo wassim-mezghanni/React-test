@@ -9,9 +9,8 @@ const navRoutes: Record<string, string> = {
   selection: '/selection',
   tables: '/tables',
   library: '/library',
-  data: '/data',
-  analytics: '/analytics',
   workflows: '/workflows',
+  settings: '/settings',
 };
 
 export interface SidebarNavItem {
@@ -55,9 +54,8 @@ const defaultNavItems: SidebarNavItem[] = [
   { id: 'selection', icon: 'checklist', label: 'Selection' },
   { id: 'tables', icon: 'table_rows', label: 'Tables' },
   { id: 'library', icon: 'style', label: 'Library' },
-  { id: 'data', icon: 'home_storage', label: 'Data' },
   { id: 'analytics', icon: 'leaderboard', label: 'Analytics' },
-  { id: 'workflows', icon: 'account_tree', label: 'Workflows' },
+  { id: 'settings', icon: 'settings', label: 'Settings' },
 ];
 
 export default function Sidebar({
@@ -111,11 +109,14 @@ export default function Sidebar({
       <aside className="fixed left-0 top-14 h-[calc(100vh-56px)] z-40 bg-white/80 backdrop-blur-md border-r border-outline-variant/10 flex flex-col items-center py-4 gap-3 w-[50px]">
         {navItems.map(item => {
           const isActive = item.id === activeNavId;
+
+          const route = navRoutes[item.id] ?? '/';
+
           return (
             <button
               key={item.id}
               title={item.label}
-              onClick={() => { navigate(navRoutes[item.id] ?? '/'); onNavChange?.(item.id); }}
+              onClick={() => { navigate(route); onNavChange?.(item.id); }}
               className={`w-8 h-8 flex items-center justify-center rounded-lg transition-colors ${isActive
                 ? 'bg-primary-container/15 text-primary/80'
                 : 'text-outline/40 hover:text-primary/70 hover:bg-primary-container/10'
@@ -130,9 +131,6 @@ export default function Sidebar({
         <div className="mt-auto flex flex-col items-center gap-3 pb-2">
           <button className="w-8 h-8 flex items-center justify-center rounded-lg text-outline/40 hover:text-primary/70 hover:bg-primary-container/10 transition-colors">
             <span className="icon text-xl">help</span>
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded-lg text-outline/40 hover:text-primary/70 hover:bg-primary-container/10 transition-colors">
-            <span className="icon text-xl">settings</span>
           </button>
         </div>
       </aside>
