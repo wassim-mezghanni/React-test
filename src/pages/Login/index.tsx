@@ -25,7 +25,7 @@ export default function Login() {
         </div>
       </section>
 
-      {/* Right Side: Visualization */}
+      {/* Right Side: Visualization — Remotion-inspired orchestrated animation */}
       <section className="hidden md:flex w-1/2 bg-gradient-to-br from-[#EEF2FF] via-white/50 to-primary/5 relative items-center justify-center p-12 overflow-hidden">
         {/* Background blurs */}
         <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-white/40 blur-[120px] rounded-full" />
@@ -36,57 +36,61 @@ export default function Login() {
         <div className="relative z-10 w-full max-w-2xl text-center space-y-12">
           {/* Visualization Area */}
           <div className="relative aspect-square max-w-lg mx-auto flex items-center justify-center">
-            {/* SVG Flow Paths — frosted light trails */}
-            <svg className="absolute inset-0 w-full h-full opacity-[0.15] pointer-events-none" viewBox="0 0 400 400">
+            {/* SVG Flow Paths — animated draw-in from center */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400">
               <defs>
                 <filter id="glow">
-                  <feGaussianBlur stdDeviation="2" result="blur" />
+                  <feGaussianBlur stdDeviation="3" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
               </defs>
-              {/* Center → Bottom */}
-              <path d="M200,320 L200,230" fill="none" stroke="#1a4d2e" strokeDasharray="4 4" strokeWidth="2" />
               {/* Center → Top Left */}
-              <path d="M200,200 L80,80" fill="none" stroke="#1a4d2e" strokeDasharray="4 4" strokeWidth="2" />
+              <path className="animate-path-draw" d="M200,200 L80,80" fill="none" stroke="#1a4d2e" strokeWidth="1.5" filter="url(#glow)" />
               {/* Center → Top Right */}
-              <path d="M200,200 L320,80" fill="none" stroke="#1a4d2e" strokeDasharray="4 4" strokeWidth="2" />
+              <path className="animate-path-draw" d="M200,200 L320,80" fill="none" stroke="#1a4d2e" strokeWidth="1.5" filter="url(#glow)" style={{ animationDelay: '0.4s' }} />
               {/* Center → Left */}
-              <path d="M170,200 L40,200" fill="none" stroke="#1a4d2e" strokeDasharray="4 4" strokeWidth="2" />
+              <path className="animate-path-draw" d="M200,200 L40,200" fill="none" stroke="#1a4d2e" strokeWidth="1.5" filter="url(#glow)" style={{ animationDelay: '0.5s' }} />
               {/* Center → Right */}
-              <path d="M230,200 L360,200" fill="none" stroke="#1a4d2e" strokeDasharray="4 4" strokeWidth="2" />
+              <path className="animate-path-draw" d="M200,200 L360,200" fill="none" stroke="#1a4d2e" strokeWidth="1.5" filter="url(#glow)" style={{ animationDelay: '0.6s' }} />
               {/* Center → Bottom Left */}
-              <path d="M200,230 L80,320" fill="none" stroke="#1a4d2e" strokeDasharray="4 4" strokeWidth="2" />
-              {/* Center → Bottom Right (SAP) */}
-              <path d="M200,230 L320,320" fill="none" stroke="#1a4d2e" strokeDasharray="4 4" strokeWidth="2" />
+              <path className="animate-path-draw" d="M200,200 L80,320" fill="none" stroke="#1a4d2e" strokeWidth="1.5" filter="url(#glow)" style={{ animationDelay: '0.7s' }} />
+              {/* Center → Bottom Right */}
+              <path className="animate-path-draw" d="M200,200 L320,320" fill="none" stroke="#1a4d2e" strokeWidth="1.5" filter="url(#glow)" style={{ animationDelay: '0.8s' }} />
+              {/* Center → Bottom */}
+              <path className="animate-path-draw" d="M200,200 L200,340" fill="none" stroke="#1a4d2e" strokeWidth="1.5" filter="url(#glow)" style={{ animationDelay: '0.9s' }} />
             </svg>
 
-            {/* Data Pulse Dots */}
+            {/* Data Pulse Dots — eased with glow trails, 8 directions */}
             <div className="absolute inset-0 pointer-events-none overflow-visible">
-              <div className="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-primary-container rounded-full animate-data-pulse-up" />
-              <div className="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-primary-container rounded-full animate-data-pulse-up [animation-delay:1s]" />
-              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-branch-left [animation-delay:2s]" />
-              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-branch-right [animation-delay:2s]" />
+              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-up" />
+              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-down" />
+              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-left" />
+              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-right" />
+              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-bottom-left" />
+              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-bottom-right" />
+              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-center-left" />
+              <div className="absolute w-2 h-2 bg-primary-container rounded-full animate-data-pulse-center-right" />
             </div>
 
             <div className="w-full h-full relative">
-              {/* Central AI Hub — Glassmorphic Circle */}
+              {/* Central AI Hub — Spring entrance → breathing idle */}
               <div className="absolute inset-0 flex items-center justify-center z-30">
-                {/* Outer glow */}
-                <div className="absolute w-44 h-44 rounded-full bg-primary/10 blur-2xl animate-pulse" />
-                {/* Glass circle */}
-                <div className="relative w-36 h-36 rounded-full bg-white/10 backdrop-blur-xl border border-white/30 shadow-[0_0_40px_rgba(26,77,46,0.15)] flex items-center justify-center">
+                {/* Outer glow — fades in with hub */}
+                <div className="absolute w-44 h-44 rounded-full bg-primary/10 blur-2xl animate-hub-glow-ring" />
+                {/* Glass circle — spring scale entrance */}
+                <div className="relative w-36 h-36 rounded-full bg-white/10 backdrop-blur-xl border border-white/30 shadow-[0_0_40px_rgba(26,77,46,0.15)] flex items-center justify-center animate-hub-entrance">
                   {/* Inner glow ring */}
                   <div className="absolute inset-2 rounded-full border border-primary/10" />
-                  {/* Icon */}
-                  <span className="icon text-5xl text-primary drop-shadow-[0_0_12px_rgba(26,77,46,0.3)] animate-pulse">auto_awesome</span>
+                  {/* Icon — breathes after entrance */}
+                  <span className="icon text-5xl text-primary drop-shadow-[0_0_12px_rgba(26,77,46,0.3)] animate-hub-breathe">auto_awesome</span>
                 </div>
               </div>
 
-              {/* Efficiency Node (Top Left) — Glass Card */}
-              <div className="absolute top-0 left-0 z-20 animate-float">
+              {/* Efficiency Node (Top Left) — entrance #1 + drift */}
+              <div className="absolute top-0 left-0 z-20 animate-node-enter-1 animate-drift">
                 <div className="bg-white/60 backdrop-blur-lg p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-white/40">
                   <div className="w-10 h-10 bg-emerald-50/80 rounded-lg flex items-center justify-center text-emerald-600">
                     <span className="icon">trending_up</span>
@@ -98,8 +102,8 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* AI Prediction Node (Top Right) — Tinted Glass */}
-              <div className="absolute top-0 right-0 z-20 animate-float-delayed">
+              {/* AI Prediction Node (Top Right) — entrance #2 + drift-alt */}
+              <div className="absolute top-0 right-0 z-20 animate-node-enter-2 animate-drift-alt">
                 <div className="bg-primary-container/70 backdrop-blur-lg p-5 rounded-2xl shadow-2xl text-on-primary border border-white/10">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="icon text-sm">insights</span>
@@ -109,8 +113,8 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* CSV Import Node (Left) — Glass Card */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 animate-float">
+              {/* CSV Import Node (Left) — entrance #3 + drift */}
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 animate-node-enter-3 animate-drift">
                 <div className="bg-white/60 backdrop-blur-lg p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-white/40">
                   <div className="w-10 h-10 bg-amber-50/80 rounded-lg flex items-center justify-center text-amber-600">
                     <span className="icon">description</span>
@@ -121,8 +125,8 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* Analytics Node (Right) — Tinted Glass */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 animate-float-delayed">
+              {/* Analytics Node (Right) — entrance #4 + drift-alt */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 animate-node-enter-4 animate-drift-alt">
                 <div className="bg-primary-container/70 backdrop-blur-lg p-5 rounded-2xl shadow-2xl text-on-primary border border-white/10">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="icon text-sm">analytics</span>
@@ -132,8 +136,8 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* Database Node (Bottom Left) — Glass Card */}
-              <div className="absolute bottom-0 left-0 z-20 animate-float-delayed">
+              {/* Database Node (Bottom Left) — entrance #5 + drift-alt */}
+              <div className="absolute bottom-0 left-0 z-20 animate-node-enter-5 animate-drift-alt">
                 <div className="bg-white/60 backdrop-blur-lg p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-white/40">
                   <div className="w-10 h-10 bg-indigo-50/80 rounded-lg flex items-center justify-center text-indigo-600">
                     <span className="icon">storage</span>
@@ -145,8 +149,8 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* SAP Node (Bottom Right) — Glass Card */}
-              <div className="absolute bottom-0 right-0 z-20 animate-float">
+              {/* SAP Node (Bottom Right) — entrance #6 + drift */}
+              <div className="absolute bottom-0 right-0 z-20 animate-node-enter-6 animate-drift">
                 <div className="bg-white/60 backdrop-blur-lg p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-white/40">
                   <div className="w-10 h-10 bg-blue-50/80 rounded-lg flex items-center justify-center text-blue-600">
                     <span className="icon">database</span>
@@ -159,8 +163,8 @@ export default function Login() {
               </div>
             </div>
           </div>
-          {/* Slogan — Glass Box */}
-          <div className="bg-white/30 backdrop-blur-md rounded-2xl p-8 border border-white/20 space-y-4">
+          {/* Slogan — Glass Box with delayed entrance */}
+          <div className="bg-white/30 backdrop-blur-md rounded-2xl p-8 border border-white/20 space-y-4 animate-slogan-entrance">
             <h3 className="text-2xl font-heading font-extrabold text-primary-container tracking-tight">
               Predictive Clarity. Enterprise Intelligence. Quatelio Powered.
             </h3>
