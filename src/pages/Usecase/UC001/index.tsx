@@ -15,15 +15,13 @@ import Tabs from '../../../components/ui/Tabs';
 import { KPICard } from '../../../components/charts/KPICard';
 import { BarChart } from '../../../components/charts/BarChart';
 import { DataTable } from '../../../components/charts/DataTable';
-import { DonutChart } from '../../../components/charts/DonutChart';
+import { useChatStore } from '../../../lib/store';
 
 import schemaJson from './uc_001_schema.json';
 import resultJson from './uc_001_result.json';
 
 const UC001_SCHEMA = parseSchemaJson(schemaJson);
 const MOCK_RESULT = resultJson as unknown as UseCaseResult;
-
-const AGENT_COLORS = ['#1A4D2E', '#2E7D52', '#4CAF50', '#81C784', '#A5D6A7'];
 
 type View = 'parameters' | 'results';
 
@@ -32,22 +30,35 @@ export default function UC001() {
   const [formValues, setFormValues] = useState<Record<string, string | number | boolean>>(state?.prefilled || {});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [view, setView] = useState<View>('parameters');
-  const [activeTab, setActiveTab] = useState('summary');
+  const [activeTab, setActiveTab] = useState('gl_accounts');
+
+  const pushMessage = useChatStore((state) => state.pushMessage);
 
   const handleExecute = () => {
     setErrors({});
     setView('results');
+    // Ensure we don't duplicate the automated message if they click it multiple times in a row,
+    // although for a mock this is fine.
+    setTimeout(() => {
+      pushMessage('assistant', MOCK_RESULT.result_summary);
+    }, 500);
   };
 
   const result = view === 'results' ? MOCK_RESULT : null;
   const flaggedAccounts = result?.accounts.filter(a => a.flagged) || [];
+  const activeAgent = result?.agent_results.find(a => a.dimension === activeTab);
 
-  const donutData = result?.agent_results.map((a, i) => ({
-    id: a.dimension,
-    name: humanize(a.dimension),
-    value: a.records_fetched,
-    color: AGENT_COLORS[i % AGENT_COLORS.length],
-  })) || [];
+  // Build unified tabs: GL Accounts + each agent dimension
+  const dimensionTabs = result
+    ? [
+      { id: 'gl_accounts', label: 'GL Accounts', icon: 'account_balance' },
+      ...result.agent_results.map(a => ({
+        id: a.dimension,
+        label: humanize(a.dimension),
+        icon: 'smart_toy',
+      })),
+    ]
+    : [];
 
   return (
     <UseCaseLayout
@@ -61,7 +72,7 @@ export default function UC001() {
         />
       }
     >
-      {/* Parameter Section */}
+      {/* ─── Parameter Section ─── */}
       {view === 'parameters' && (
         <section className="space-y-4 animate-in fade-in duration-500">
           <div className="flex items-center justify-between">
@@ -84,7 +95,7 @@ export default function UC001() {
         </section>
       )}
 
-      {/* Results Section */}
+      {/* ─── Results Section ─── */}
       {result && view === 'results' && (
         <section className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
           {/* Top bar */}
@@ -102,6 +113,7 @@ export default function UC001() {
           {/* KPI Row */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <KPICard
+              compact
               title="Total Variance"
               value={fmtCurrency(result.agent_results[0]?.statistical_summary.total_amount || 0)}
               icon="trending_down"
@@ -112,58 +124,59 @@ export default function UC001() {
             <KPICard title="Total Records" value={result.agent_results.reduce((s, a) => s + a.records_fetched, 0)} icon="database" />
           </div>
 
-          {/* Main Tabs */}
+          {/* Two-column: Narratives (left) + Chart (right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Left — Narrative cards */}
+            <div className="space-y-6">
+              <NarrativeCard title="Executive Root Cause Summary" icon="auto_awesome">
+                {result.executive_summary.replace(/^###\s.*\n\n?/m, '')}
+              </NarrativeCard>
+
+              <NarrativeCard title="CRO / Revenue Intelligence Summary" icon="monitoring">
+                {result.cro_summary}
+              </NarrativeCard>
+            </div>
+
+            {/* Right — Period comparison chart */}
+            <SectionCard title="Flagged GL Accounts — Period Comparison" className="h-fit">
+              <BarChart
+                data={flaggedAccounts.map(a => ({
+                  account: `${a.gl_account} — ${a.gl_account_name.slice(0, 24)}`,
+                  'Period A': a.period_balance_amount,
+                  'Period B': a.comparison_period_balance_amount,
+                }))}
+                categoryKey="account"
+                series={[
+                  { key: 'Period A', color: '#1A4D2E', name: 'Period A' },
+                  { key: 'Period B', color: '#81C784', name: 'Period B' },
+                ]}
+                height={380}
+                valueFormatter={fmtCurrency}
+              />
+            </SectionCard>
+          </div>
+
+          {/* Agent Key Findings */}
+          <AgentFindingsGrid agents={result.agent_results} />
+
+          {/* Unified 6-tab panel: GL Accounts + 5 Dimensions */}
           <div className="space-y-6">
             <div className="border-b border-outline-variant/10 pb-2">
               <Tabs
                 activeTabId={activeTab}
                 onChange={setActiveTab}
-                tabs={[
-                  { id: 'summary', label: 'Executive Summary', icon: 'description' },
-                  { id: 'agents', label: 'Dimension Analysis', icon: 'hub' },
-                  { id: 'accounts', label: 'GL Accounts', icon: 'account_balance' },
-                  { id: 'charts', label: 'Charts', icon: 'bar_chart' },
-                ]}
+                tabs={dimensionTabs}
                 variant="pill"
-                className="w-auto"
               />
             </div>
 
-            {/* SUMMARY TAB */}
-            {activeTab === 'summary' && (
-              <div className="space-y-6 animate-in fade-in duration-500">
-                <NarrativeCard title="Executive Root Cause Summary" icon="auto_awesome">
-                  {result.executive_summary.replace(/^###\s.*\n\n?/m, '')}
-                </NarrativeCard>
-
-                <NarrativeCard title="CRO / Revenue Intelligence Summary" icon="monitoring">
-                  {result.cro_summary}
-                </NarrativeCard>
-
-                <AgentFindingsGrid agents={result.agent_results} />
-
-                <SectionCard title="Records by Dimension">
-                  <DonutChart
-                    data={donutData}
-                    centerLabel="Total Records"
-                    centerValue={result.agent_results.reduce((s, a) => s + a.records_fetched, 0)}
-                    height={260}
-                  />
-                </SectionCard>
-              </div>
-            )}
-
-            {/* AGENTS TAB */}
-            {activeTab === 'agents' && (
-              <AgentDimensionPanel agents={result.agent_results} usecaseId="uc001" />
-            )}
-
-            {/* ACCOUNTS TAB */}
-            {activeTab === 'accounts' && (
-              <div className="space-y-6 animate-in fade-in duration-500">
+            {/* GL Accounts tab */}
+            {activeTab === 'gl_accounts' && (
+              <div className="animate-in fade-in duration-500">
                 <div className="bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/10">
                   <DataTable<AccountRow & { _id: number }>
-                    title={<span className="text-sm font-bold">GL Account Balances — {result.accounts.length} accounts</span>}
+                    subtitle={`${result.accounts.length} accounts`}
+                    title="GL Account Balances"
                     data={result.accounts.map((a, i) => ({ _id: i, ...a }))}
                     columns={[
                       { key: 'gl_account', label: 'GL Account', sortable: true, filterable: true },
@@ -197,49 +210,9 @@ export default function UC001() {
               </div>
             )}
 
-            {/* CHARTS TAB */}
-            {activeTab === 'charts' && (
-              <div className="space-y-6 animate-in fade-in duration-500">
-                <SectionCard title="Flagged GL Accounts — Period Comparison">
-                  <BarChart
-                    data={flaggedAccounts.map(a => ({
-                      account: `${a.gl_account}\n${a.gl_account_name.slice(0, 20)}`,
-                      'Period A': a.period_balance_amount,
-                      'Period B': a.comparison_period_balance_amount,
-                    }))}
-                    categoryKey="account"
-                    series={[
-                      { key: 'Period A', color: '#1A4D2E', name: 'Period A' },
-                      { key: 'Period B', color: '#81C784', name: 'Period B' },
-                    ]}
-                    height={350}
-                    valueFormatter={fmtCurrency}
-                  />
-                </SectionCard>
-
-                <SectionCard title="Absolute Difference — Flagged Accounts">
-                  <BarChart
-                    data={flaggedAccounts.map(a => ({
-                      account: a.gl_account,
-                      difference: a.absolute_difference_amount,
-                    }))}
-                    categoryKey="account"
-                    series={[{ key: 'difference', color: '#E53935', name: 'Absolute Difference' }]}
-                    height={300}
-                    valueFormatter={fmtCurrency}
-                  />
-                </SectionCard>
-
-                <SectionCard title="Records Fetched by Agent">
-                  <DonutChart
-                    data={donutData}
-                    centerLabel="Total"
-                    centerValue={result.agent_results.reduce((s, a) => s + a.records_fetched, 0)}
-                    height={280}
-                    valueFormatter={(v) => `${v} records`}
-                  />
-                </SectionCard>
-              </div>
+            {/* Dimension agent tabs */}
+            {activeAgent && (
+              <AgentDimensionPanel agent={activeAgent} usecaseId="uc001" />
             )}
           </div>
         </section>

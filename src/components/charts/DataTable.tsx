@@ -267,10 +267,13 @@ export function DataTable<T extends Record<string, any>>({
     <div className={`w-full flex flex-col ${className}`}>
       {/* Header */}
       {(title || subtitle || actions) && (
-        <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-2">
-            {subtitle && <span className="text-on-secondary-container font-label text-xs font-bold tracking-[0.15em] uppercase">{subtitle}</span>}
-            {title && <h1 className="text-4xl font-headline font-extrabold tracking-tighter text-on-surface">{title}</h1>}
+        <header className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 px-1">
+          <div className="space-y-1 flex items-center gap-3">
+            <div className="w-1 h-8 rounded-full bg-primary shrink-0" />
+            <div>
+              {subtitle && <span className="text-primary font-label text-[10px] font-bold tracking-[0.15em] uppercase">{subtitle}</span>}
+              {title && <h1 className="text-xl font-headline font-extrabold tracking-tight text-on-surface">{title}</h1>}
+            </div>
           </div>
           {actions && <div className="flex gap-3">{actions}</div>}
         </header>

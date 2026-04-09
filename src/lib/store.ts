@@ -23,3 +23,37 @@ export const useSessionStore = create<SessionState>()(
     }
   )
 );
+
+// ── Chat Messages Store ──
+
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
+
+interface ChatState {
+  messages: ChatMessage[];
+  pushMessage: (role: 'user' | 'assistant', content: string) => void;
+  clearMessages: () => void;
+}
+
+const DEFAULT_GREETING: ChatMessage = {
+  id: 'greeting',
+  role: 'assistant',
+  content: 'Hi! How can I help you today?',
+  timestamp: new Date(),
+};
+
+export const useChatStore = create<ChatState>()((set) => ({
+  messages: [DEFAULT_GREETING],
+  pushMessage: (role, content) =>
+    set((state) => ({
+      messages: [
+        ...state.messages,
+        { id: crypto.randomUUID(), role, content, timestamp: new Date() },
+      ],
+    })),
+  clearMessages: () => set({ messages: [DEFAULT_GREETING] }),
+}));

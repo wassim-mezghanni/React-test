@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { Dropdown, type DropdownOption } from './Dropdown.tsx';
+import { useChatStore } from '../../lib/store';
 
 export interface ChatMessage {
   id: string;
@@ -26,14 +27,9 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [mode, setMode] = useState('usecase');
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: 'Hi! How can I help you today?',
-      timestamp: new Date(),
-    },
-  ]);
+  const messages = useChatStore((state) => state.messages);
+  const pushMessage = useChatStore((state) => state.pushMessage);
+  const clearMessages = useChatStore((state) => state.clearMessages);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -63,24 +59,12 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
   const handleSend = () => {
     if (!message.trim()) return;
 
-    const userMsg: ChatMessage = {
-      id: crypto.randomUUID(),
-      role: 'user',
-      content: message.trim(),
-      timestamp: new Date(),
-    };
-    setMessages((prev) => [...prev, userMsg]);
+    pushMessage('user', message.trim());
     setMessage('');
 
     // Mock assistant response
     setTimeout(() => {
-      const reply: ChatMessage = {
-        id: crypto.randomUUID(),
-        role: 'assistant',
-        content: `I'm processing your request using the ${mode} agent. This will be connected to the full chat engine soon.`,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, reply]);
+      pushMessage('assistant', `I'm processing your request using the ${mode} agent. This will be connected to the full chat engine soon.`);
     }, 800);
   };
 
@@ -120,14 +104,7 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
             <button
               onClick={() => {
                 setOpen(false);
-                setMessages([
-                  {
-                    id: '1',
-                    role: 'assistant',
-                    content: 'Hi! How can I help you today?',
-                    timestamp: new Date(),
-                  },
-                ]);
+                clearMessages();
               }}
               className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
             >

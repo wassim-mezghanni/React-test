@@ -1,9 +1,19 @@
-/** Format a number as compact currency: $1.23M, $45.0K, $900 */
+/**
+ * Format a number as compact currency, adaptive precision to keep strings short.
+ *   >= 1B   → $1.2B
+ *   >= 100M → $124M
+ *   >= 1M   → $15.5M
+ *   >= 100K → $473K
+ *   >= 1K   → $15.2K
+ *   < 1K    → $900
+ */
 export const fmtCurrency = (v: number) => {
+  const sign = v < 0 ? '-' : '';
   const abs = Math.abs(v);
-  if (abs >= 1_000_000) return `${v < 0 ? '-' : ''}$${(abs / 1_000_000).toFixed(2)}M`;
-  if (abs >= 1_000) return `${v < 0 ? '-' : ''}$${(abs / 1_000).toFixed(1)}K`;
-  return `$${v.toLocaleString()}`;
+  if (abs >= 999_500_000) return `${sign}$${(abs / 1_000_000_000).toFixed(abs >= 10_000_000_000 ? 0 : 1)}B`;
+  if (abs >= 1_000_000) return `${sign}$${(abs / 1_000_000).toFixed(abs >= 100_000_000 ? 0 : 1)}M`;
+  if (abs >= 1_000) return `${sign}$${(abs / 1_000).toFixed(abs >= 100_000 ? 0 : 1)}K`;
+  return `${sign}$${abs.toLocaleString()}`;
 };
 
 /** Format a number as a signed percentage: +5.2%, -3.1% */

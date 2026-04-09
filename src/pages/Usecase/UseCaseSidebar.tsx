@@ -24,15 +24,7 @@ export function UseCaseSidebar({ description, result, formValues }: UseCaseSideb
         </p>
       </div>
 
-      {/* AI Insight */}
-      {result && (
-        <div className="bg-primary/5 rounded-xl p-4 border border-primary/10 animate-in fade-in duration-500">
-          <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-2">Result Summary</h3>
-          <p className="text-[12px] text-on-surface-variant leading-relaxed">
-            {result.result_summary}
-          </p>
-        </div>
-      )}
+
 
       {/* Flagged Accounts */}
       {flaggedAccounts.length > 0 && (

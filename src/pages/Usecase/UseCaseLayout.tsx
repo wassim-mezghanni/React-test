@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import AppLayout from '../../layouts/AppLayout.tsx';
 import { sidebarProjects, sidebarChats } from '../../mocks/sidebarMock.ts';
 import { useAuth } from '../../contexts/AuthContext.tsx';
@@ -17,6 +17,7 @@ export default function UseCaseLayout({
   usecaseId,
 }: UseCaseLayoutProps) {
   const { user } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
     <AppLayout
@@ -27,9 +28,16 @@ export default function UseCaseLayout({
     >
       <div className="flex flex-col h-[calc(100vh-56px)] overflow-hidden">
         {/* Header bar within the page */}
-        <header className="h-14 border-b border-outline-variant/10 flex items-center justify-between px-8 bg-surface-container-lowest/50 backdrop-blur-md sticky top-0 z-10">
+        <header className="h-14 border-b border-outline-variant/10 flex items-center justify-between px-6 bg-surface-container-lowest/50 backdrop-blur-md sticky top-0 z-10">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center">
+            <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant cursor-pointer"
+              title={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+            >
+              <span className="icon text-xl">{isSidebarOpen ? 'keyboard_double_arrow_left' : 'keyboard_double_arrow_right'}</span>
+            </button>
+            <div className="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center ml-2">
               <span className="icon text-primary text-xl">apps</span>
             </div>
             <div>
@@ -51,10 +59,17 @@ export default function UseCaseLayout({
         </header>
 
         {/* Content Area with its own Sidebar */}
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 overflow-hidden relative">
           {/* Chat/Context Sidebar */}
-          <aside className="w-[320px] border-r border-outline-variant/10 bg-surface-container-low/30 backdrop-blur-sm overflow-y-auto sidebar-scroll">
-            {sidebar}
+          <aside 
+            className={`border-r border-outline-variant/10 bg-surface-container-low/30 backdrop-blur-sm transition-all duration-300 ease-in-out z-10 flex-shrink-0 ${
+              isSidebarOpen ? 'w-[320px] translate-x-0 opacity-100' : 'w-0 -translate-x-[320px] opacity-0 border-r-0'
+            }`}
+          >
+            {/* Inner div to maintain content width during transition so it doesn't wrap/squish */}
+            <div className="w-[320px] h-full overflow-y-auto sidebar-scroll">
+              {sidebar}
+            </div>
           </aside>
 
           {/* Main Content (Form / Tabs) */}

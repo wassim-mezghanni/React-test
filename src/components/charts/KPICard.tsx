@@ -7,6 +7,7 @@ export interface KPICardProps {
   trend?: { value: number; label?: string };
   icon: string;
   description?: React.ReactNode;
+  compact?: boolean;
   className?: string;
 }
 
@@ -17,13 +18,40 @@ export const KPICard: React.FC<KPICardProps> = ({
   trend,
   icon,
   description,
+  compact = false,
   className = ''
 }) => {
+  if (compact) {
+    return (
+      <div className={`bg-surface-container-lowest rounded-xl shadow-[0_10px_30px_-5px_rgba(25,28,29,0.05)] p-4 relative overflow-hidden ${className}`}>
+        <div className="absolute -top-16 -right-16 w-32 h-32 bg-primary-container/5 rounded-full blur-3xl"></div>
+        <div className="flex items-center gap-2 mb-3 relative z-10">
+          <div className="w-7 h-7 rounded-md bg-secondary-container flex items-center justify-center text-primary-container">
+            <span className="icon text-base">{icon}</span>
+          </div>
+          <span className="font-headline text-[10px] font-semibold tracking-wide text-on-surface-variant uppercase leading-tight">
+            {title}
+          </span>
+        </div>
+        <div className="relative z-10">
+          <span className="font-headline text-4xl font-extrabold tracking-tight text-primary-container">
+            {value}
+          </span>
+          {currency && (
+            <span className="font-headline text-sm font-bold text-on-primary-container/40 ml-1">
+              {currency}
+            </span>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`bg-surface-container-lowest rounded-xl shadow-[0_10px_30px_-5px_rgba(25,28,29,0.05)] p-10 relative overflow-hidden ${className}`}>
       {/* Subtle Forest Accent (Corner Glow) */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary-container/5 rounded-full blur-3xl"></div>
-      
+
       {/* Card Header */}
       <div className="flex items-center justify-between mb-8 relative z-10">
         <div className="flex items-center gap-3">
@@ -34,7 +62,7 @@ export const KPICard: React.FC<KPICardProps> = ({
             {title}
           </span>
         </div>
-        
+
         {trend && (
           <div className={`px-3 py-1 rounded-full flex items-center gap-1 ${trend.value >= 0 ? 'bg-secondary-fixed' : 'bg-error-container'}`}>
             <span className={`icon text-xs ${trend.value >= 0 ? 'text-on-primary-fixed-variant' : 'text-on-error-container'}`}>
@@ -59,7 +87,7 @@ export const KPICard: React.FC<KPICardProps> = ({
             </span>
           )}
         </div>
-        
+
         {/* Editorial Insight Text */}
         {description && (
           <div className="pt-6 border-t border-outline-variant/15 mt-6">
