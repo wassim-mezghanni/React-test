@@ -1886,33 +1886,6 @@
                     }
                 ]
             }
-        ],
-        "variance_by_dimension": [
-            {
-                "label": "Total",
-                "data": [
-                    {
-                        "x": "CostCenter",
-                        "y": -124273331.06
-                    },
-                    {
-                        "x": "ProfitCenter",
-                        "y": -124273331.06
-                    },
-                    {
-                        "x": "Customer",
-                        "y": -124273331.06
-                    },
-                    {
-                        "x": "Supplier",
-                        "y": -124273331.06
-                    },
-                    {
-                        "x": "DocumentType",
-                        "y": -124273331.06
-                    }
-                ]
-            }
         ]
     },
     "result_summary": "4 GL accounts flagged above 1000000.0 threshold in company 1710. 5 dimension(s) analysed. Key driver: Financial Analysis Report: Period A vs. Period B.",

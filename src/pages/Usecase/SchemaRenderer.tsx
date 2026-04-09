@@ -5,8 +5,10 @@ import { MetadataDropdown } from '../../components/form/MetadataDropdown';
 
 interface SchemaRendererProps {
   schema: UseCaseSchema;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   values: Record<string, any>;
   errors: Record<string, string>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (id: string, value: any) => void;
   className?: string;
 }
@@ -29,7 +31,7 @@ export default function SchemaRenderer({
     };
 
     switch (field.type) {
-      case 'toggle':
+      case 'toggle': {
         // Segmented toggle for string options like ["Absolute", "Percentage"]
         const options = (field.options || []) as string[];
         const current = values[field.id] || field.default || options[0];
@@ -57,6 +59,7 @@ export default function SchemaRenderer({
             </div>
           </div>
         );
+      }
 
       case 'period_range':
         // Group of sub-fields rendered as a labeled card

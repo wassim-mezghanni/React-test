@@ -1,4 +1,4 @@
-# Querai — Financial AI Platform
+# Querai 
 
 Querai is a financial intelligence platform built with React and TypeScript. Uses AI-powered analysis with SAP financial data to deliver interactive dashboards, conversational insights and configurable use-case workflows.
 
