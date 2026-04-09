@@ -56,7 +56,6 @@ const defaultNavItems: SidebarNavItem[] = [
   { id: 'selection', icon: 'checklist', label: 'Selection' },
   { id: 'tables', icon: 'table_rows', label: 'Tables' },
   { id: 'library', icon: 'style', label: 'Library' },
-  { id: 'analytics', icon: 'leaderboard', label: 'Analytics' },
   { id: 'settings', icon: 'settings', label: 'Settings' },
 ];
 
