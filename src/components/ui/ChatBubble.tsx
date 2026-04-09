@@ -28,8 +28,9 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
   const [message, setMessage] = useState('');
   const [mode, setMode] = useState('usecase');
   const messages = useChatStore((state) => state.messages);
-  const pushMessage = useChatStore((state) => state.pushMessage);
   const clearMessages = useChatStore((state) => state.clearMessages);
+  const sendMessageToApi = useChatStore((state) => state.sendMessageToApi);
+  const isLoading = useChatStore((state) => state.isLoading);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -56,16 +57,13 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
     }
   }, [message]);
 
-  const handleSend = () => {
-    if (!message.trim()) return;
+  const handleSend = async () => {
+    if (!message.trim() || isLoading) return;
 
-    pushMessage('user', message.trim());
+    const userText = message.trim();
     setMessage('');
-
-    // Mock assistant response
-    setTimeout(() => {
-      pushMessage('assistant', `I'm processing your request using the ${mode} agent. This will be connected to the full chat engine soon.`);
-    }, 800);
+    
+    await sendMessageToApi(userText, mode);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -161,10 +159,18 @@ export function ChatBubble({ className = '' }: ChatBubbleProps) {
             />
             <button
               onClick={handleSend}
-              disabled={!message.trim()}
-              className="w-10 h-10 flex items-center justify-center rounded-xl bg-primary-container text-on-primary hover:bg-primary transition-all disabled:opacity-30 shrink-0 shadow-sm active:scale-95"
+              disabled={!message.trim() || isLoading}
+              className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all shrink-0 shadow-sm active:scale-95 ${
+                isLoading 
+                  ? 'bg-surface-container-high text-outline cursor-not-allowed'
+                  : 'bg-primary-container text-on-primary hover:bg-primary'
+              } disabled:opacity-30`}
             >
-              <span className="icon text-xl">send</span>
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-outline/30 border-t-outline rounded-full animate-spin"></div>
+              ) : (
+                <span className="icon text-xl">send</span>
+              )}
             </button>
           </div>
         </div>
