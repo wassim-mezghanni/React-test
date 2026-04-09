@@ -1,10 +1,60 @@
 {
   "version": 1,
   "skills": {
+    "frontend-code-review": {
+      "source": "langgenius/dify",
+      "sourceType": "github",
+      "computedHash": "79fa87cd5460c80dc842153155b26bd4a3cad9858475c2e1ee50cab6dcd1fbbe"
+    },
+    "frontend-patterns": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "b06e633e783acfc364cf08cf44ee0fe48ece7e8c727457b188046e5ece25836f"
+    },
     "remotion-best-practices": {
       "source": "remotion-dev/skills",
       "sourceType": "github",
       "computedHash": "2f673b7710813ac07c71c0a54657f740078aec6585f15edf351494499e1f9ac3"
+    },
+    "sap-abap-cds": {
+      "source": "secondsky/sap-skills",
+      "sourceType": "github",
+      "computedHash": "50094314e08dcb2bcedd489bec933085a46eb7de5f8fa98ca2fb519f260bb542"
+    },
+    "sap-ai-core": {
+      "source": "secondsky/sap-skills",
+      "sourceType": "github",
+      "computedHash": "ac2733bfc27fa84124af63933b2e818af8325dbea2a9f9f876eb4b3277ec016f"
+    },
+    "sap-btp-developer-guide": {
+      "source": "secondsky/sap-skills",
+      "sourceType": "github",
+      "computedHash": "5260a595828428b005aa3bebbb0c3d8c7733586cd257b58a286142dc38067fd9"
+    },
+    "sap-cloud-sdk-ai": {
+      "source": "secondsky/sap-skills",
+      "sourceType": "github",
+      "computedHash": "9a1b47d8f6eebe033a91a9b1437b2fff6d4fa0e50e5a8c3fefdfb1790508b132"
+    },
+    "sap-hana-ml": {
+      "source": "secondsky/sap-skills",
+      "sourceType": "github",
+      "computedHash": "fde7aef25fdba0bda2c9788a8faf2502977fe718454452282b6f7b75d0d9b141"
+    },
+    "sap-sac-planning": {
+      "source": "secondsky/sap-skills",
+      "sourceType": "github",
+      "computedHash": "ebe56c44392f792a15021a4636aaac2df02495ac04f15359bc5b578138cdd630"
+    },
+    "typescript-patterns": {
+      "source": "oakoss/agent-skills",
+      "sourceType": "github",
+      "computedHash": "ee6ea85f22b892b8b2b0a44e1a2bfac1e2796bc5310cbeee980b5772d319897f"
+    },
+    "typescript-skills": {
+      "source": "llama-farm/llamafarm",
+      "sourceType": "github",
+      "computedHash": "5f0a9d04ab254e57e880443b65e2846b280f9a16a728c58d76f8f8a84d06e4b3"
     }
   }
 }

@@ -1,0 +1,138 @@
+{
+  "usecase_id": "uc_001",
+  "name": "Financial Variance Analysis",
+  "description": "Compare GL account balances across two fiscal periods. Flags accounts exceeding a variance threshold and drills down by Cost Center, Profit Center, Customer, Supplier, and Document Type.",
+  "sections": [
+    {
+      "id": "global_parameters",
+      "label": "Global Parameters",
+      "fields": [
+        {
+          "id": "ledger",
+          "label": "Ledger",
+          "type": "dropdown",
+          "required": true,
+          "source": "uc_001/P_Ledger",
+          "default": "0L"
+        },
+        {
+          "id": "financial_statement_version",
+          "label": "Financial Statement Version",
+          "type": "dropdown",
+          "required": true,
+          "source": "uc_001/P_FinancialStatementVersion"
+        },
+        {
+          "id": "company_code",
+          "label": "Company Code",
+          "type": "dropdown",
+          "required": true,
+          "source": "uc_001/company-codes"
+        }
+      ]
+    },
+    {
+      "id": "timeframe_comparison",
+      "label": "Timeframe Comparison",
+      "fields": [
+        {
+          "id": "period_a",
+          "label": "Period A — Base",
+          "type": "period_range",
+          "fields": [
+            {
+              "id": "period_a_fiscal_year",
+              "label": "Fiscal Year",
+              "type": "dropdown",
+              "required": true,
+              "source": "uc_001/fiscal-years"
+            },
+            {
+              "id": "period_a_from",
+              "label": "From Period",
+              "type": "dropdown",
+              "required": true,
+              "source": "uc_001/fiscal-periods"
+            },
+            {
+              "id": "period_a_to",
+              "label": "To Period",
+              "type": "dropdown",
+              "required": true,
+              "source": "uc_001/fiscal-periods"
+            }
+          ]
+        },
+        {
+          "id": "period_b",
+          "label": "Period B — Current",
+          "type": "period_range",
+          "fields": [
+            {
+              "id": "period_b_fiscal_year",
+              "label": "Fiscal Year",
+              "type": "dropdown",
+              "required": true,
+              "source": "uc_001/fiscal-years"
+            },
+            {
+              "id": "period_b_from",
+              "label": "From Period",
+              "type": "dropdown",
+              "required": true,
+              "source": "uc_001/fiscal-periods"
+            },
+            {
+              "id": "period_b_to",
+              "label": "To Period",
+              "type": "dropdown",
+              "required": true,
+              "source": "uc_001/fiscal-periods"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variance_threshold",
+      "label": "Variance Threshold",
+      "fields": [
+        {
+          "id": "threshold_type",
+          "label": "Threshold Type",
+          "type": "toggle",
+          "required": true,
+          "options": [
+            "Absolute",
+            "Percentage"
+          ],
+          "default": "Absolute"
+        },
+        {
+          "id": "threshold_value",
+          "label": "Minimum Absolute Difference",
+          "type": "number",
+          "required": true,
+          "placeholder": "e.g. 1000000",
+          "default": 1000000
+        },
+        {
+          "id": "currency_role",
+          "label": "Currency Role",
+          "type": "dropdown",
+          "required": true,
+          "source": "uc_001/P_CurrencyRole",
+          "default": "10"
+        },
+        {
+          "id": "planning_category",
+          "label": "Planning Category",
+          "type": "dropdown",
+          "required": true,
+          "source": "uc_001/P_PlanningCategory",
+          "default": "ACT01"
+        }
+      ]
+    }
+  ]
+}

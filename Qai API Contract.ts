@@ -24,14 +24,15 @@
 //   1. POST /auth/login       → receive auth_token
 //   2. Store auth_token (memory / localStorage)
 //   3. POST /sessions/new     → receive session_id (start a conversation)
-//   4. All chat/UC calls send both:
+//      OR omit session_id on /usecase/execute — backend auto-creates one
+//   4. All chat/UC calls send:
 //        Header: Authorization: Bearer <auth_token>
-//        Body:   { session_id: "...", ... }
+//        Body:   { session_id?: "...", ... }
 //   5. On 401 → clear auth_token, redirect to login
 //
 // The frontend never touches SAP credentials after registration.
 
-export type AuthToken = string;
+type AuthToken = string;
 type SessionId = string; // UUID — one per conversation
 
 
@@ -99,9 +100,9 @@ interface LoginResponse {
   auth_token: AuthToken;         // ← store this, send as Bearer on every request
   user_id: string;
   full_name: string;
-  role: 'admin' | 'user';       // admin = Quatelio provider, user = standard
   default_company_code: string;
   default_currency: string;
+  role: "admin" | "user";
 }
 // 401 { detail: "Invalid credentials" }
 
@@ -119,7 +120,6 @@ interface MeResponse {
   user_id: string;
   full_name: string;
   email: string;
-  role: 'admin' | 'user';
   default_company_code: string;
   default_currency: string;
 }
@@ -162,24 +162,28 @@ interface ConnectionStatusResponse {
 
 
 // ─────────────────────────────────────────────────────────────
-// METADATA — shared dropdown data  [AUTH REQUIRED]
+// METADATA — use case dropdown data  [AUTH REQUIRED]
 // ─────────────────────────────────────────────────────────────
 //
-// Source-scoped. {source} matches UserSettings.data_source — "sap" or "oracle".
-// Frontend builds URL as /metadata/${userSettings.data_source}/company-codes
-// Backend routes to the correct adapter. All return DropdownOption[]
-
-// GET /metadata/:source/company-codes
-// GET /metadata/:source/fiscal-years
-// GET /metadata/:source/fiscal-periods?fiscal_year=2024
-//     → [{ value: "001/2024", label: "Period 1 / 2024" }, ...]
-// GET /metadata/:source/currencies
-// GET /metadata/:source/cost-centers?company_code=1010
-// GET /metadata/:source/profit-centers?company_code=1010
-// GET /metadata/:source/gl-accounts?company_code=1010
-// GET /metadata/:source/customers?company_code=1010
-// GET /metadata/:source/suppliers?company_code=1010
-// GET /metadata/:source/document-types
+// Each use case defines which parameters it needs via its schema.
+// The schema's `source` field tells the frontend which metadata endpoint
+// to call for each dropdown.
+//
+// Backend resolves the data source (sap/oracle) internally from the
+// user's data_source setting. Frontend never specifies the data source.
+//
+// GET /metadata/{usecase_id}/{parameter}
+// Header: Authorization: Bearer <auth_token>
+// → DropdownOption[]
+//
+// Examples:
+//   GET /metadata/uc_001/P_Ledger
+//   GET /metadata/uc_001/P_CompanyCode
+//   GET /metadata/uc_001/P_FinancialStatementVersion
+//   GET /metadata/uc_001/P_CurrencyRole
+//   GET /metadata/uc_001/P_PlanningCategory
+//   GET /metadata/uc_001/fiscal-years
+//   GET /metadata/uc_001/fiscal-periods
 
 
 // ─────────────────────────────────────────────────────────────
@@ -313,22 +317,6 @@ type ChatResponse =
   | ChatResponseAnalysis;
 
 
-// POST /chat/context  [AUTH REQUIRED]
-// Call this AFTER a UC result finishes loading.
-// Backend stores a 2-3 sentence result_summary in conversation memory
-// and returns a short insight for the sidebar.
-// Do NOT send full result data — only the summary + key numbers.
-interface ContextRequest {
-  session_id: SessionId;
-  usecase_id: string;
-  result_summary: string;               // from UC execute response
-  key_data: Record<string, unknown>;    // e.g. { flagged_count: 23, threshold: "10%" }
-}
-interface ContextResponse {
-  insight: string;   // 2 sentences shown in the agent sidebar on the UC view
-}
-
-
 // POST /chat/assist  [AUTH REQUIRED]
 // ─────────────────────────────────────────────
 // Purpose: inline parameter assistant inside a UC form.
@@ -361,9 +349,9 @@ interface AssistResponse {
 // ─────────────────────────────────────────────────────────────
 // USE CASE SCHEMA  [AUTH REQUIRED]
 // ─────────────────────────────────────────────────────────────
-// GET /usecase/:usecase_id/schema
+// GET /usecase/schema?usecase_id=uc_001
 // Header: Authorization: Bearer <auth_token>
-// 
+//
 // Returns the form definition for a use case.
 // Frontend uses this to know which fields to render, which dropdowns
 // to load, and which fields are required.
@@ -377,7 +365,7 @@ interface ParameterField {
   type: ParameterFieldType;
   required?: boolean;
   // For dropdown fields — frontend calls GET /metadata/{source}
-  // e.g. source: "uc_001/value-help/P_Ledger" → GET /metadata/uc_001/value-help/P_Ledger
+  // e.g. source: "uc_001/P_Ledger" → GET /metadata/uc_001/P_Ledger
   source?: string;
   options?: string[];          // for static dropdowns / toggles (no SAP call needed)
   default?: unknown;           // pre-filled from user settings
@@ -399,35 +387,43 @@ interface UseCaseSchema {
 }
 
 // Frontend flow:
-//   1. GET /usecase/uc_001/schema  → receive sections with fields
+//   1. GET /usecase/schema?usecase_id=uc_001  → receive sections with fields
 //   2. For each field with `source`, call GET /metadata/{source}  → dropdown options
 //   3. Render form grouped by sections
-//   4. On submit, POST /usecase/uc_001/execute with flat fields + session_id
+//   4. On submit, POST /usecase/execute with { usecase_id, parameters, session_id? }
 
 
 // ─────────────────────────────────────────────────────────────
 // USE CASE EXECUTION  [AUTH REQUIRED]
 // ─────────────────────────────────────────────────────────────
 
-// POST /usecase/uc_001/execute
-interface UC001ExecuteRequest {
-  session_id: SessionId;
-  company_code: string;
-  period_a_fiscal_year: string;
-  period_a_from: string;
-  period_a_to: string;
-  period_b_fiscal_year: string;
-  period_b_from: string;
-  period_b_to: string;
-  threshold_value: number;
-  threshold_type: "Absolute" | "Percentage";
-  currency: string;
-  ledger?: string;                        // default "0L"
-  comparison_ledger?: string;             // default "0L"
-  currency_role?: string;                 // default "10"
-  planning_category?: string;             // default "ACT01"
-  financial_statement_version?: string;   // default "INT"
+// POST /usecase/execute
+// Unified endpoint for all use cases. Backend dispatches by usecase_id.
+// session_id is optional — if omitted, backend auto-creates a new session.
+// The response always includes session_id so frontend can track it.
+interface UsecaseExecuteRequest {
+  usecase_id: string;                     // "uc_001" | "uc_002" | "uc_003"
+  session_id?: SessionId;                 // optional — auto-created if missing
+  parameters: Record<string, unknown>;    // use-case-specific parameters
 }
+
+// UC_001 parameters (passed inside `parameters`):
+// {
+//   company_code: string;
+//   period_a_fiscal_year: string;
+//   period_a_from: string;
+//   period_a_to: string;
+//   period_b_fiscal_year: string;
+//   period_b_from: string;
+//   period_b_to: string;
+//   threshold_value: number;
+//   threshold_type: "Absolute" | "Percentage";
+//   ledger?: string;                        // default "0L"
+//   comparison_ledger?: string;             // default "0L"
+//   currency_role?: string;                 // default "10" — P_CurrencyRole sent to SAP
+//   planning_category?: string;             // default "ACT01"
+//   financial_statement_version?: string;   // default "INT"
+// }
 
 // ── UC_001  Financial Variance Analysis ──────
 //
@@ -450,20 +446,19 @@ interface AgentResult {
     min: number;
     max: number;
   };
-  flagged_items: Record<string, unknown>[];
   narrative: string;         // 2-3 paragraph LLM analysis for this dimension
   key_finding: string;       // one sentence (used internally by CFO agent)
   confidence: Confidence;
 }
 
-interface FlaggedAccount {
+interface AccountRow {
   gl_account: string;
   gl_account_name: string;
   period_balance_amount: number;
   comparison_period_balance_amount: number;
   absolute_difference_amount: number;
   relative_difference_amount: number;
-  currency: string;
+  flagged: boolean;                  // true if exceeded the variance threshold
 }
 
 interface ChartSeries {
@@ -473,18 +468,19 @@ interface ChartSeries {
 
 interface UC001Response {
   usecase_id: "uc_001";
+  session_id: SessionId;           // always present — auto-created if not provided
   executive_summary: string;       // CFO synthesis
   cro_summary: string;
   agent_results: AgentResult[];    // one entry per dimension agent
-  flagged_accounts: FlaggedAccount[];
-  flagged_count: number;
+  accounts: AccountRow[];          // all GL accounts — flagged: true/false
+  flagged_count: number;           // count of accounts where flagged === true
   chart_data: {
     variance_by_account: ChartSeries[];
     variance_by_dimension: ChartSeries[];
   };
   result_summary: string;
-  // ↑ 2-3 sentences. After receiving this response, frontend calls
-  //   POST /chat/context with this string. Do not store full result in chat.
+  // ↑ 2-3 sentences. Saved as a conversation turn by the backend.
+  //   Do not store full result in chat — only result_summary is persisted.
 }
 
 

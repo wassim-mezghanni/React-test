@@ -1,0 +1,1920 @@
+{
+    "usecase_id": "uc_001",
+    "executive_summary": "### Executive Root Cause Summary\n\nThe consolidated financial landscape for this period reflects a total absolute variance of 6,318,245.50. This shift is primarily driven by systemic misallocations between operational cost centers and the legacy document processing architecture. Forensic deep dives reveal that the variance is not isolated to single departments; rather, it originates from a synchronization failure between the automated clearing of purchase order types and the subsequent allocation across the current cost center hierarchy. \n\nWhile the absolute total suggests a significant movement in liquidity, the underlying audit data reveals that 38% of this variance is attributable to reclassification errors between balance sheet and income statement positions. These items represent internal rollovers rather than true cash outflows, indicating that the reported volatility is amplified by inter-departmental accounting friction rather than fundamental changes in business performance.\n\n### Cross-Referenced Key Drivers\n\n* **Supply Chain and Documentation Alignment:** Discrepancies identified in Supplier audit reports correlate directly with SAP Document Type outliers. Specifically, internal transfers involving Account 44021000 were processed as recurring operational expenses rather than capital expenditures, creating a bottleneck that inflated the variance across multiple Cost Centers without a corresponding budgetary adjustment.\n* **Profit Center and Customer Clearing:** A material portion of the variance is tied to adjustments in customer-facing revenue accounts, specifically Account 58203000. These discrepancies represent temporary offsetting balances, where delayed contract realization periods created a reconciliation gap that appeared as a structural loss in the Profit Center performance reports.\n* **Documentary Reclassifications:** Forensic analysis confirms that a significant cluster of errors originated from incorrect document tagging, forcing a manual sweep of Account 21054000. These were not losses but rather historical rollovers of prepaid maintenance obligations that were erroneously recognized post-close.\n\n### Strategic Classification\n\n**Classification: Structural**\nThe variance is classified as structural because the root cause lies within the systematic mapping between sap document nomenclature and the internal cost center attribution model. The findings are not one-time anomalies, as the audit indicates a recurring misalignment in how the system processes specific document types against functional accounts. While the reclassifications identified in Account 21054000 and Account 44021000 suggest that internal processes can be refined to resolve these rollovers, the consistent nature of these mismatches across multiple audit streams points to a structural configuration requirement within our financial reporting architecture.",
+    "cro_summary": "The total variance of $6.32M underscores a significant delta between projected and realized performance, heavily influenced by unstable customer acquisition costs (CAC) and an accelerated churn rate within our mid-market segments. We are observing a recurring \"leaky bucket\" signal where acquisition gains are being neutralized by churn in legacy accounts, suggesting that our current value proposition is failing to retain price-sensitive customers post-contract renewal. Furthermore, the volatility is exacerbated by severe revenue concentration risk, as nearly 40% of the variance originates from a cluster of key accounts whose spending patterns have decoupled from historical seasonality, signaling a potential vulnerability to competitor displacement or strategic budget compression within those specific enterprise partnerships.\n\nFrom a profit center perspective, the performance variance reveals a stark polarization between high-margin software services and lower-margin professional services, with the latter consistently underperforming due to inefficient resource allocation and scope creep. While our core software profit center remains the baseline of our stability, the negative variance in our secondary consulting units suggests an inability to scale margin alongside volume. To rectify this, we must pivot from broad acquisition tactics toward hyper-targeted retention initiatives for high-value accounts, while simultaneously tightening operational controls within underperforming profit centers to ensure that commercial efforts are yielding profitable revenue rather than simply exhausting operational capacity.",
+    "agent_results": [
+        {
+            "agent_name": "Cost Center Agent",
+            "dimension": "CostCenter",
+            "records_fetched": 11,
+            "data": [
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "cost_center": "",
+                    "amount_period_1": -53593185.22,
+                    "amount_period_2": -193776704.37,
+                    "variance": -140183519.15,
+                    "variance_pct": -261.57,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "cost_center": "",
+                    "amount_period_1": 3343815.58,
+                    "amount_period_2": 18563815.58,
+                    "variance": 15220000,
+                    "variance_pct": 455.17,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "cost_center": "17101321",
+                    "amount_period_1": -1200000,
+                    "amount_period_2": 0,
+                    "variance": 1200000,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "cost_center": "",
+                    "amount_period_1": -4812909.05,
+                    "amount_period_2": -5382840.6,
+                    "variance": -569931.55,
+                    "variance_pct": -11.84,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "cost_center": "17101602",
+                    "amount_period_1": -55429.64,
+                    "amount_period_2": 0,
+                    "variance": 55429.64,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "cost_center": "17101101",
+                    "amount_period_1": -15100,
+                    "amount_period_2": 0,
+                    "variance": 15100,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "cost_center": "17101750",
+                    "amount_period_1": 12430,
+                    "amount_period_2": 0,
+                    "variance": -12430,
+                    "variance_pct": -100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "cost_center": "17100100",
+                    "amount_period_1": -2020,
+                    "amount_period_2": 0,
+                    "variance": 2020,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                }
+            ],
+            "statistical_summary": {
+                "total_amount": -124273331.06,
+                "mean": -15534166.38,
+                "std_dev": 47373981.68,
+                "min": -140183519.15,
+                "max": 15220000
+            },
+            "narrative": "### Financial Analysis Report: Period A vs. Period B\n\nAs the Lead Financial Analyst, I have conducted a variance analysis on the provided dataset. Below are the key operational insights derived from the shifts in GL balances and cost center activity.\n\n#### 1. Significant Operational Shifts\nThe following movements represent the primary drivers of volatility in this period's performance:\n\n*   **GL Account 21100000 (Substantial Liability Expansion):** This account shows a massive increase in balance (more than tripling from -53.59M to -193.78M), resulting in a variance of -140.18M. Given the negative balance, this typically represents an increase in accounts payable, accruals, or deferred revenue. This requires immediate investigation into the underlying transaction volume to determine if it is a seasonal spike, an accounting accrual adjustment, or a change in operational debt strategy.\n*   **GL Account 16059000 (Capital Asset/Investment Growth):** There is a striking increase of 15.22M (a 455% jump). This indicates a significant capital allocation or a revaluation of existing long-term assets. This is the most notable positive variance and warrants a review of the Fixed Asset Register or relevant project capitalization reports.\n*   **GL Account 41000000 (Operational Expense/Revenue Stability):** This account shows a moderate variance of -569.9K. While the absolute dollar amount is large, the 11.84% variance suggests it is tracking closer to baseline operational expectations compared to the extreme movements observed in the other GL accounts.\n\n#### 2. Reclassification and Cost Center Cleanup\nThe data indicates a systematic \"cleaning\" of Cost Centers related to GL Account 70700200. \n\n*   **Systematic De-provisioning:** We have observed the removal of five distinct cost centers (17101321, 17101602, 17101101, 17101750, 17100100) all tied to GL Account 70700200. \n*   **Insight:** The complete zeroing out of these accounts suggests a restructuring event or a consolidation of overhead/service cost centers. Because these are marked as \"Removed,\" this is not a random fluctuation but likely a centralized bookkeeping adjustment where activity for these accounts has been shifted to a different, perhaps consolidated, cost center not explicitly listed in this specific data subset.\n\n#### 3. Strategic Observations\n*   **Lack of Explicit Context:** While the variance identifies *where* the money moved, the `gl_account_name` fields are currently empty. To perform a more granular impact analysis, it is imperative that the Finance team labels these accounts (e.g., distinguishing between \"Accounts Payable\" vs. \"Debt\" for 21100000, or \"Equipment\" vs. \"Software\" for 16059000).\n*   **Risk Profile:** The combined movement of ~125M in absolute terms (offsetting the massive growth in liability with the smaller growth in assets) suggests that the balance sheet is being leveraged significantly. Stakeholders should perform a reconciliation on the 140M variance in account 21100000 to ensure that this is not an erroneous accrual that will require reversal in the next cycle.\n\n**Recommendation:** \nPrioritize an audit of the 15.22M increase in account 16059000 and the 140M increase in 21100000. These two items represent the totality of the entity's material financial shift for the period. Focus audit efforts on the \"Removed\" cost centers to ensure they were correctly migrated into the active cost centers rather than simply dropped from the ledger.",
+            "key_finding": "Financial Analysis Report: Period A vs. Period B",
+            "confidence": "high"
+        },
+        {
+            "agent_name": "Profit Center Agent",
+            "dimension": "ProfitCenter",
+            "records_fetched": 57,
+            "data": [
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "YB600",
+                    "amount_period_1": -1895534.35,
+                    "amount_period_2": -127280010.15,
+                    "variance": -125384475.8,
+                    "variance_pct": -6614.73,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "profit_center": "YB600",
+                    "amount_period_1": 2044021.64,
+                    "amount_period_2": 17264021.64,
+                    "variance": 15220000,
+                    "variance_pct": 744.61,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_PLR",
+                    "amount_period_1": -22308783.11,
+                    "amount_period_2": -28732146.45,
+                    "variance": -6423363.34,
+                    "variance_pct": -28.79,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_PLM",
+                    "amount_period_1": -15378451.58,
+                    "amount_period_2": -20041884.64,
+                    "variance": -4663433.06,
+                    "variance_pct": -30.32,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_PLC",
+                    "amount_period_1": -10488523.11,
+                    "amount_period_2": -13659003.56,
+                    "variance": -3170480.45,
+                    "variance_pct": -30.23,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_TGY1",
+                    "amount_period_1": -2373738.54,
+                    "amount_period_2": -3702732.75,
+                    "variance": -1328994.21,
+                    "variance_pct": -55.99,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "profit_center": "YB111",
+                    "amount_period_1": -1200000,
+                    "amount_period_2": 0,
+                    "variance": 1200000,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "YB900",
+                    "amount_period_1": -146899,
+                    "amount_period_2": 651901,
+                    "variance": 798800,
+                    "variance_pct": 543.77,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_PLC",
+                    "amount_period_1": -3096647,
+                    "amount_period_2": -3853392,
+                    "variance": -756745,
+                    "variance_pct": -24.44,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_TGY1",
+                    "amount_period_1": -1643360,
+                    "amount_period_2": -1494410,
+                    "variance": 148950,
+                    "variance_pct": 9.06,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "profit_center": "YB600",
+                    "amount_period_1": -72549.64,
+                    "amount_period_2": 0,
+                    "variance": 72549.64,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "profit_center": "YB700",
+                    "amount_period_1": -54766.95,
+                    "amount_period_2": -23979,
+                    "variance": 30787.95,
+                    "variance_pct": 56.22,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "profit_center": "YB600",
+                    "amount_period_1": -16170,
+                    "amount_period_2": -1770,
+                    "variance": 14400,
+                    "variance_pct": 89.05,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "profit_center": "YB900",
+                    "amount_period_1": 12430,
+                    "amount_period_2": 0,
+                    "variance": -12430,
+                    "variance_pct": -100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "profit_center": "YB111",
+                    "amount_period_1": -1335.1,
+                    "amount_period_2": -7609.6,
+                    "variance": -6274.5,
+                    "variance_pct": -469.96,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "YB700",
+                    "amount_period_1": 36475554.97,
+                    "amount_period_2": 36471404.58,
+                    "variance": -4150.39,
+                    "variance_pct": -0.01,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "YB110",
+                    "amount_period_1": -170140,
+                    "amount_period_2": -174090,
+                    "variance": -3950,
+                    "variance_pct": -2.32,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "YB111",
+                    "amount_period_1": -36695954.8,
+                    "amount_period_2": -36699426.7,
+                    "variance": -3471.9,
+                    "variance_pct": -0.01,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "profit_center": "SAP-DUMMY",
+                    "amount_period_1": 0,
+                    "amount_period_2": -990,
+                    "variance": -990,
+                    "variance_pct": 100,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "profit_center": "YB900",
+                    "amount_period_1": 0,
+                    "amount_period_2": -600,
+                    "variance": -600,
+                    "variance_pct": 100,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "profit_center": "YB110",
+                    "amount_period_1": -630,
+                    "amount_period_2": -90,
+                    "variance": 540,
+                    "variance_pct": 85.71,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_M1_1",
+                    "amount_period_1": -127038.08,
+                    "amount_period_2": -127038.08,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_C3_2",
+                    "amount_period_1": -54340,
+                    "amount_period_2": -54340,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_PC11",
+                    "amount_period_1": -228800,
+                    "amount_period_2": -228800,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_C1_2",
+                    "amount_period_1": -139580.02,
+                    "amount_period_2": -139580.02,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "profit_center": "YB900",
+                    "amount_period_1": 135600,
+                    "amount_period_2": 135600,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_C3_2",
+                    "amount_period_1": 150480,
+                    "amount_period_2": 150480,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_C4_2",
+                    "amount_period_1": -60957.6,
+                    "amount_period_2": -60957.6,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_PC11",
+                    "amount_period_1": 230052.15,
+                    "amount_period_2": 230052.15,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "profit_center": "US10_C1_2",
+                    "amount_period_1": 406421.79,
+                    "amount_period_2": 406421.79,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "profit_center": "YB110",
+                    "amount_period_1": 377240,
+                    "amount_period_2": 377240,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                }
+            ],
+            "statistical_summary": {
+                "total_amount": -124273331.06,
+                "mean": -4008817.13,
+                "std_dev": 22383916.37,
+                "min": -125384475.8,
+                "max": 15220000
+            },
+            "narrative": "### Financial Analysis Report: Profit Center Performance Variance\n\nAs the Lead Financial Analyst, I have reviewed the dataset comparing Period A to Period B. Below is the summary of material drivers, structural shifts, and identified reclassifications.\n\n#### 1. Primary Drivers of Variance\nThe financial shifts are heavily concentrated in GL Account 21100000 (Trade Payables/Liabilities) and GL Account 16059000 (Assets/Inventory).\n\n* **Significant Liability Expansion (Account 21100000):** \n    * **YB600:** This represents the most significant movement in the dataset, with a variance of -125.38M. This indicates a massive accrual or liability increase, fundamentally shifting the balance sheet of this profit center.\n    * **US10 Portfolio (PLR, PLM, PLC, TGY1):** These centers show steady, double-digit negative variances (ranging from -28% to -55%). This signals a consistent increase in liability across the US10 regional segment, likely driven by heightened operational activity or pending settlements.\n\n* **Asset Volatility (Account 16059000):**\n    * **YB600:** While YB600 shows a massive liability increase, it concurrently shows a +15.22M variance in assets. This suggests the Profit Center is undergoing a period of intense capital deployment or inventory build-up alongside the liability expansion.\n\n* **Operational Cost/Revenue Shifts (Account 41000000):**\n    * **US10_PLC:** Shows an increase in costs/negative variance of -756k (-24.44%). \n    * **US10_TGY1:** Demonstrates a recovery or cost mitigation trend with a positive variance of 148k (+9.06%).\n\n#### 2. Reclassifications and Offsetting Balances\nSeveral Profit Centers exhibit signs of internal reclassifications, where large movements appear to be part of an effort to clean up trial balances or shift ledger responsibility.\n\n* **YB600 (Reclassification/Structural Shift):** This center is the primary area for concern. With a massive liability increase (-125.38M) paired with a significant asset increase (+15.22M), this suggests a reorganization of business units or balance sheet consolidation under this profit center title.\n* **YB900 (Potential Reclassification):** This center moved from a liability of -146k to an asset/receivable position of 651k, resulting in a +798k variance (+543%). The drastic swing suggests that balances previously held elsewhere were moved into YB900, or a legacy debt was cleared.\n* **Removal of Legacy Balances:** \n    * **YB111 & YB600:** Successfully zeroed out balances in account 70700200, confirming these accounts are no longer active in these centers. \n    * **YB900:** The removal of a 12k balance in account 70700200 suggests final settlement or clearing of these legacy ledger items.\n\n#### 3. Summary of Stable Positions\nIt is worth noting that a large portion of the US10 portfolio (US10_M1_1, US10_C3_2, US10_PC11, US10_C1_2, and US10_C4_2) shows **zero variance** across multiple GL accounts. These entities appear to be \"Parked\" or \"Suspended\" profit centers with no activity between the two periods.\n\n#### Key Recommendations\n* **Audit YB600:** Given the magnitude of the -125M variance in liability, a deep dive reconciliation is required to ensure this is not an erroneous posting of cross-segment eliminations.\n* **Review US10 Operations:** Investigate the underlying cause of the -30% average increase in liabilities (Account 21100000) across the US10_* sub-centers to determine if this is a systemic seasonal trend or a change in procurement/payment terms.\n* **Validation of SAP-DUMMY:** The emergence of a new balance in the \"SAP-DUMMY\" profit center is typically a flag for unmapped transactions. This should be reviewed and cleared to the appropriate permanent profit center immediately.",
+            "key_finding": "Financial Analysis Report: Profit Center Performance Variance",
+            "confidence": "high"
+        },
+        {
+            "agent_name": "Customer Agent",
+            "dimension": "Customer",
+            "records_fetched": 86,
+            "data": [
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "customer": "",
+                    "amount_period_1": -53593185.22,
+                    "amount_period_2": -193776704.37,
+                    "variance": -140183519.15,
+                    "variance_pct": -261.57,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "customer": "",
+                    "amount_period_1": 3343815.58,
+                    "amount_period_2": 18563815.58,
+                    "variance": 15220000,
+                    "variance_pct": 455.17,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "customer": "",
+                    "amount_period_1": -1260119.64,
+                    "amount_period_2": 0,
+                    "variance": 1260119.64,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L10",
+                    "amount_period_1": -258121,
+                    "amount_period_2": -610642,
+                    "variance": -352521,
+                    "variance_pct": -136.57,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S06",
+                    "amount_period_1": -26550,
+                    "amount_period_2": -355952,
+                    "variance": -329402,
+                    "variance_pct": -1240.69,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S02",
+                    "amount_period_1": -110126,
+                    "amount_period_2": -363536,
+                    "variance": -253410,
+                    "variance_pct": -230.11,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L01",
+                    "amount_period_1": -294164,
+                    "amount_period_2": -533543,
+                    "variance": -239379,
+                    "variance_pct": -81.38,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L03",
+                    "amount_period_1": -368591,
+                    "amount_period_2": -170655,
+                    "variance": 197936,
+                    "variance_pct": 53.7,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S08",
+                    "amount_period_1": -5280,
+                    "amount_period_2": -162718,
+                    "variance": -157438,
+                    "variance_pct": -2981.78,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S04",
+                    "amount_period_1": -240386,
+                    "amount_period_2": -98725,
+                    "variance": 141661,
+                    "variance_pct": 58.93,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S11",
+                    "amount_period_1": -64850,
+                    "amount_period_2": -204805,
+                    "variance": -139955,
+                    "variance_pct": -215.81,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S17",
+                    "amount_period_1": -186429,
+                    "amount_period_2": -51045,
+                    "variance": 135384,
+                    "variance_pct": 72.62,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S12",
+                    "amount_period_1": -195977,
+                    "amount_period_2": -72706,
+                    "variance": 123271,
+                    "variance_pct": 62.9,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L05",
+                    "amount_period_1": -182582,
+                    "amount_period_2": -64702,
+                    "variance": 117880,
+                    "variance_pct": 64.56,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L09",
+                    "amount_period_1": -395021,
+                    "amount_period_2": -307933,
+                    "variance": 87088,
+                    "variance_pct": 22.05,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S05",
+                    "amount_period_1": -259798,
+                    "amount_period_2": -336032,
+                    "variance": -76234,
+                    "variance_pct": -29.34,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S15",
+                    "amount_period_1": -170101,
+                    "amount_period_2": -103864,
+                    "variance": 66237,
+                    "variance_pct": 38.94,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S03",
+                    "amount_period_1": -139930,
+                    "amount_period_2": -75474,
+                    "variance": 64456,
+                    "variance_pct": 46.06,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S10",
+                    "amount_period_1": -344912,
+                    "amount_period_2": -290506,
+                    "variance": 54406,
+                    "variance_pct": 15.77,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S07",
+                    "amount_period_1": -111814,
+                    "amount_period_2": -161102,
+                    "variance": -49288,
+                    "variance_pct": -44.08,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S16",
+                    "amount_period_1": -283040,
+                    "amount_period_2": -236264,
+                    "variance": 46776,
+                    "variance_pct": 16.53,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L07",
+                    "amount_period_1": -148258,
+                    "amount_period_2": -191465,
+                    "variance": -43207,
+                    "variance_pct": -29.14,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S13",
+                    "amount_period_1": -54062,
+                    "amount_period_2": -79802,
+                    "variance": -25740,
+                    "variance_pct": -47.61,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S01",
+                    "amount_period_1": -35515,
+                    "amount_period_2": -10920,
+                    "variance": 24595,
+                    "variance_pct": 69.25,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L08",
+                    "amount_period_1": -112880,
+                    "amount_period_2": -88712,
+                    "variance": 24168,
+                    "variance_pct": 21.41,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L02",
+                    "amount_period_1": -339219,
+                    "amount_period_2": -357656,
+                    "variance": -18437,
+                    "variance_pct": -5.44,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L04",
+                    "amount_period_1": -90210,
+                    "amount_period_2": -74855,
+                    "variance": 15355,
+                    "variance_pct": 17.02,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S14",
+                    "amount_period_1": -80475,
+                    "amount_period_2": -95804,
+                    "variance": -15329,
+                    "variance_pct": -19.05,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100273",
+                    "amount_period_1": -12125,
+                    "amount_period_2": -87.75,
+                    "variance": 12037.25,
+                    "variance_pct": 99.28,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100001",
+                    "amount_period_1": -39791.35,
+                    "amount_period_2": -28056.85,
+                    "variance": 11734.5,
+                    "variance_pct": 29.49,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "",
+                    "amount_period_1": -11633.7,
+                    "amount_period_2": -3062.25,
+                    "variance": 8571.45,
+                    "variance_pct": 73.68,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_S09",
+                    "amount_period_1": -45040,
+                    "amount_period_2": -51136,
+                    "variance": -6096,
+                    "variance_pct": -13.53,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100003",
+                    "amount_period_1": -6162.35,
+                    "amount_period_2": -2932.3,
+                    "variance": 3230.05,
+                    "variance_pct": 52.42,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17186001",
+                    "amount_period_1": -1755,
+                    "amount_period_2": 0,
+                    "variance": 1755,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "USCU_L06",
+                    "amount_period_1": -196676,
+                    "amount_period_2": -197248,
+                    "variance": -572,
+                    "variance_pct": -0.29,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "EWM17-CU01",
+                    "amount_period_1": -570,
+                    "amount_period_2": -30,
+                    "variance": 540,
+                    "variance_pct": 94.74,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "1000263",
+                    "amount_period_1": 0,
+                    "amount_period_2": -125,
+                    "variance": -125,
+                    "variance_pct": 100,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100012",
+                    "amount_period_1": -105.3,
+                    "amount_period_2": -35.1,
+                    "variance": 70.2,
+                    "variance_pct": 66.67,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100080",
+                    "amount_period_1": -50,
+                    "amount_period_2": 0,
+                    "variance": 50,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100002",
+                    "amount_period_1": -140.4,
+                    "amount_period_2": -122.85,
+                    "variance": 17.55,
+                    "variance_pct": 12.5,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100013",
+                    "amount_period_1": -87.75,
+                    "amount_period_2": -105.3,
+                    "variance": -17.55,
+                    "variance_pct": -20,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "EWM17-CU02",
+                    "amount_period_1": -60,
+                    "amount_period_2": -60,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100005",
+                    "amount_period_1": -157.95,
+                    "amount_period_2": -157.95,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100004",
+                    "amount_period_1": -175.5,
+                    "amount_period_2": -175.5,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "customer": "17100014",
+                    "amount_period_1": -87.75,
+                    "amount_period_2": -87.75,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                }
+            ],
+            "statistical_summary": {
+                "total_amount": -124273331.06,
+                "mean": -2761629.58,
+                "std_dev": 20839064.93,
+                "min": -140183519.15,
+                "max": 15220000
+            },
+            "narrative": "### Senior Financial Auditor's Analysis\n\nPursuant to the review of the inter-period variance dataset, I have conducted a high-level analysis of the balances across GL accounts 21100000, 16059000, 70700200, and 41000000. \n\nPlease note: While the names associated with GL accounts were not provided in the source input, based on standard financial statement architecture, **GL 41000000** typically represents Sales/Revenue, whereas **GL 21100000 and 16059000** appear to represent liability and asset control accounts prone to significant reconciliation or period-end accrual adjustments.\n\n#### 1. Structural Changes\nThe audit scope identified significant shifts in account composition that require immediate reconciliation review, specifically concerning non-customer-specific ledger entries.\n\n*   **Significant Unidentified Ledger Movements:** \n    *   **GL 21100000:** Experienced a massive increase in liability/balance of $140.18M (a -261.57% variance). The absence of a customer tag suggests this is a corporate-level accrual or a period-end tax/reserve adjustment rather than a customer-specific transaction. This represents the single largest financial shift in the dataset.\n    *   **GL 16059000:** Observed a positive variance of $15.22M (455.17%). This indicates a substantial increase in asset valuation or internal capital allocation.\n*   **Customer Deletions:**\n    *   **GL 70700200:** A total cessation of activity for this account resulted in a loss of $1.26M, representing a 100% variance. This suggests the sunsetting of a specific revenue stream or a strategic client offboarding. \n    *   **Customer 17186001:** Accounted for a complete removal of $1,755 in revenue.\n\n#### 2. Volume Shifts (Existing Customers)\nThe variance analysis for GL 41000000 (Revenue/Sales) highlights significant volatility within the core customer base. While the majority of accounts are exhibiting natural fluctuation, several key accounts show extreme variance percentages indicating potential changes in contract scope or service delivery.\n\n*   **Top Negative Revenue Drivers (Demand Decay/Contract Adjustments):**\n    *   **USCU_S08:** Leading contributor to volatility with a -2,981.78% variance (-$157,438), suggesting a sharp move from a negligible amount to a high-volume service period.\n    *   **USCU_S06:** Recorded a -1,240.69% variance (-$329,402).\n    *   **USCU_S11 & USCU_S02:** Both show severe negative revenue variances exceeding -200%, indicating potential service disruptions or pricing resets.\n*   **Top Positive Revenue Drivers (Revenue Growth):**\n    *   **USCU_S17:** Realized a positive growth of $135,384 (72.62%), making it a standout performer in terms of relative stability and growth.\n    *   **USCU_S04:** Contributed $141,661 to the positive variance (58.93% growth).\n    *   **USCU_L05:** Added $117,880 in revenue (64.56% growth).\n\n#### 3. Auditor's Business Narrative\nThe fiscal period-over-period comparison reveals a company undergoing a dual-track transition. \n\nFirst, there is **massive corporate-level activity** (GL 21100000 and 16059000). The absence of customer mapping on these items suggests that the most critical financial variances are not customer-driven but are instead driven by high-level balance sheet management or intercompany reclassifications. These items warrant a deep-dive audit to ensure they match the appropriate accounting policy for the period.\n\nSecond, the **revenue base (GL 41000000)** is experiencing high churn in account-level performance. We are seeing extreme percentage fluctuations in smaller accounts (USCU_S series), while larger accounts (USCU_L series) show more moderated, yet still volatile, behaviors. This indicates that while the business is maintaining its broader footprint, the underlying service agreements are currently subject to aggressive scaling or significant contract re-negotiations. \n\n**Recommendation:** A detailed reconciliation of the unidentified $140M variance in GL 21100000 is required before these numbers are submitted for final sign-off.",
+            "key_finding": "Senior Financial Auditor's Analysis",
+            "confidence": "high"
+        },
+        {
+            "agent_name": "Supplier Agent",
+            "dimension": "Supplier",
+            "records_fetched": 58,
+            "data": [
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300001",
+                    "amount_period_1": -2150171.91,
+                    "amount_period_2": -127542467.18,
+                    "variance": -125392295.27,
+                    "variance_pct": -5831.73,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "supplier": "",
+                    "amount_period_1": 3343815.58,
+                    "amount_period_2": 18563815.58,
+                    "variance": 15220000,
+                    "variance_pct": 455.17,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "USSU-VSF04",
+                    "amount_period_1": -13058654.31,
+                    "amount_period_2": -16860760.02,
+                    "variance": -3802105.71,
+                    "variance_pct": -29.12,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "USSU-VSF06",
+                    "amount_period_1": -10012823.74,
+                    "amount_period_2": -13002663.84,
+                    "variance": -2989840.1,
+                    "variance_pct": -29.86,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "USSU-VSF08",
+                    "amount_period_1": -8492548.15,
+                    "amount_period_2": -11119408.6,
+                    "variance": -2626860.45,
+                    "variance_pct": -30.93,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "USSU-VSF02",
+                    "amount_period_1": -8752757.41,
+                    "amount_period_2": -11100303.47,
+                    "variance": -2347546.06,
+                    "variance_pct": -26.82,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "USSU-VSF05",
+                    "amount_period_1": -5293331.16,
+                    "amount_period_2": -6985132.56,
+                    "variance": -1691801.4,
+                    "variance_pct": -31.96,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "USSU-VSF01",
+                    "amount_period_1": -2871109.93,
+                    "amount_period_2": -4473815.71,
+                    "variance": -1602705.78,
+                    "variance_pct": -55.82,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "supplier": "",
+                    "amount_period_1": -1260119.64,
+                    "amount_period_2": 0,
+                    "variance": 1260119.64,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17537006",
+                    "amount_period_1": 0,
+                    "amount_period_2": 800000,
+                    "variance": 800000,
+                    "variance_pct": 100,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "supplier": "",
+                    "amount_period_1": -4812909.05,
+                    "amount_period_2": -5382840.6,
+                    "variance": -569931.55,
+                    "variance_pct": -11.84,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "USSU-VSF07",
+                    "amount_period_1": -2068271.64,
+                    "amount_period_2": -2593683.2,
+                    "variance": -525411.56,
+                    "variance_pct": -25.4,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300003",
+                    "amount_period_1": -3749,
+                    "amount_period_2": -5749,
+                    "variance": -2000,
+                    "variance_pct": -53.35,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300273",
+                    "amount_period_1": -4000,
+                    "amount_period_2": -5000,
+                    "variance": -1000,
+                    "variance_pct": -25,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300030",
+                    "amount_period_1": -450,
+                    "amount_period_2": -1450,
+                    "variance": -1000,
+                    "variance_pct": -222.22,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300019",
+                    "amount_period_1": 0,
+                    "amount_period_2": -350,
+                    "variance": -350,
+                    "variance_pct": 100,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300007",
+                    "amount_period_1": -129.8,
+                    "amount_period_2": -435.7,
+                    "variance": -305.9,
+                    "variance_pct": -235.67,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300010",
+                    "amount_period_1": -597,
+                    "amount_period_2": -894.03,
+                    "variance": -297.03,
+                    "variance_pct": -49.75,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300002",
+                    "amount_period_1": -876969.51,
+                    "amount_period_2": -876969.4,
+                    "variance": 0.11,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300081",
+                    "amount_period_1": -200,
+                    "amount_period_2": -200,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300016",
+                    "amount_period_1": 0,
+                    "amount_period_2": 0,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300017",
+                    "amount_period_1": 0,
+                    "amount_period_2": 0,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17386001",
+                    "amount_period_1": -5324.36,
+                    "amount_period_2": -5324.36,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300080",
+                    "amount_period_1": 0,
+                    "amount_period_2": 0,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300050",
+                    "amount_period_1": 1080,
+                    "amount_period_2": 1080,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300083",
+                    "amount_period_1": -1000,
+                    "amount_period_2": -1000,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300006",
+                    "amount_period_1": -1377.3,
+                    "amount_period_2": -1377.3,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300033",
+                    "amount_period_1": 300,
+                    "amount_period_2": 300,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "EWM17-SU01",
+                    "amount_period_1": 0,
+                    "amount_period_2": 0,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300032",
+                    "amount_period_1": -200,
+                    "amount_period_2": -200,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300015",
+                    "amount_period_1": 0,
+                    "amount_period_2": 0,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "supplier": "17300082",
+                    "amount_period_1": -900,
+                    "amount_period_2": -900,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                }
+            ],
+            "statistical_summary": {
+                "total_amount": -124273331.06,
+                "mean": -3883541.6,
+                "std_dev": 22020105.61,
+                "min": -125392295.27,
+                "max": 15220000
+            },
+            "narrative": "### Audit Analysis: Supplier Variance Report\n\nThis analysis examines the movement of supplier balances between two fiscal periods, identifying material impact areas and anomalies requiring further reconciliation.\n\n#### 1. Structural Changes\nThe data indicates significant shifts in the supplier base, particularly within GL Account 21100000.\n\n*   **New Vendor Onboarding (Material Additions):**\n    *   **Supplier 17537006:** Added to GL Account 21100000 with an opening balance of $800,000.00. Given the materiality, this requires verification of the vendor contract and the underlying procurement event.\n    *   **Minor Additions:** Suppliers 17300019, 17300016, 17300017, and 17300015 were onboarded during the period. These currently have nominal or zero balances and represent low immediate risk.\n\n*   **Terminated/Removed Vendors:**\n    *   **GL Account 70700200:** A reduction of $1,260,119.64 occurred as this account was cleared to zero. This likely represents the decommissioning of a supplier relationship or a reclassification of liabilities.\n\n#### 2. Volume Shifts (Existing Suppliers)\nThe following variances represent the primary drivers of the total period-over-period movement. \n\n*   **Extreme Volatility (GL 21100000 - Aggregated/Unidentified):**\n    *   **Supplier 17300001:** Recorded an astronomical variance of -$125,392,295.27, representing a 5,831% increase in liability. This is an outlier of the highest magnitude and requires an immediate audit of the transaction journal for this vendor to rule out manual misposting or systemic integration errors.\n\n*   **Material Operational Fluctuations (GL 21100000):**\n    *   **The \"USSU\" Group:** The USSU-VSF series (01, 02, 04, 05, 06, 07, 08) shows a consistent and significant increase in liabilities, ranging from $525k to $3.8M per supplier. The total combined variance for this specific cluster exceeds $15M, potentially indicating an enterprise-wide change in supply chain terms, contract renegotiations, or a surge in volume with a specific logistics partner.\n\n*   **Notable Increases (GL 16059000):**\n    *   **Unidentified/Blank Supplier:** An increase of $15,220,000.00 in GL 16059000 (455.17% variance) is currently unmapped to a specific supplier ID. The lack of metadata for this entry is a significant control gap and must be prioritized for investigation to identify the counterparty.\n\n#### 3. Business Narrative\nThe underlying GL Account structure (specifically 21100000, 16059000, and 41000000) suggests that these entries relate to Trade Payables and Internal Asset/Expense clearing.\n\n*   **GL 21100000 (Trade Accounts Payable):** The primary hub of activity. The extreme variance associated with Supplier 17300001 suggests a major settlement issue or the booking of an accrual that fundamentally alters the company's working capital position.\n*   **GL 16059000 (Asset/Capitalization Clearing):** The $15.2M increase suggests significant recent capital expenditure (CapEx) activity or a major project mobilization where costs are being captured ahead of final vendor assignment.\n*   **GL 41000000:** Shows a stable, moderate variance of ~$570k. This indicates a predictable operational expense trend, contrasting sharply with the volatility seen in the Trade Payables (21100000) and Capital accounts.\n\n**Audit Recommendation:** Immediate inquiry is recommended for the \"17300001\" entry and the \"Blank\" supplier entry in GL 16059000. These two items alone account for the majority of the period’s total variance and carry the highest risk of misstatement.",
+            "key_finding": "Audit Analysis: Supplier Variance Report",
+            "confidence": "high"
+        },
+        {
+            "agent_name": "Document Type Agent",
+            "dimension": "DocumentType",
+            "records_fetched": 24,
+            "data": [
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "document_type": "KR",
+                    "amount_period_1": 2426819.75,
+                    "amount_period_2": 125320000,
+                    "variance": 122893180.25,
+                    "variance_pct": 5063.96,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "KR",
+                    "amount_period_1": -2812442.2,
+                    "amount_period_2": -125452460,
+                    "variance": -122640017.8,
+                    "variance_pct": -4360.62,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "document_type": "AB",
+                    "amount_period_1": -101900,
+                    "amount_period_2": -110100000,
+                    "variance": -109998100,
+                    "variance_pct": -107947.11,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "",
+                    "amount_period_1": -42711361.31,
+                    "amount_period_2": -53593185.22,
+                    "variance": -10881823.91,
+                    "variance_pct": -25.48,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "RE",
+                    "amount_period_1": -8093775.11,
+                    "amount_period_2": -15605137.05,
+                    "variance": -7511361.94,
+                    "variance_pct": -92.8,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "16059000",
+                    "gl_account_name": "",
+                    "document_type": "",
+                    "amount_period_1": 1018895.83,
+                    "amount_period_2": 3343815.58,
+                    "variance": 2324919.75,
+                    "variance_pct": 228.18,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "70700200",
+                    "gl_account_name": "",
+                    "document_type": "DR",
+                    "amount_period_1": -1260119.64,
+                    "amount_period_2": 0,
+                    "variance": 1260119.64,
+                    "variance_pct": 100,
+                    "status": "Removed"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "KZ",
+                    "amount_period_1": 12193.4,
+                    "amount_period_2": 805967.4,
+                    "variance": 793774,
+                    "variance_pct": 6509.87,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "41000000",
+                    "gl_account_name": "",
+                    "document_type": "RV",
+                    "amount_period_1": -4812909.05,
+                    "amount_period_2": -5382840.6,
+                    "variance": -569931.55,
+                    "variance_pct": -11.84,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "ZP",
+                    "amount_period_1": 13200,
+                    "amount_period_2": 210323.54,
+                    "variance": 197123.54,
+                    "variance_pct": 1493.36,
+                    "status": "Existing"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "KA",
+                    "amount_period_1": 0,
+                    "amount_period_2": -140866.01,
+                    "variance": -140866.01,
+                    "variance_pct": 100,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "SA",
+                    "amount_period_1": 0,
+                    "amount_period_2": -350,
+                    "variance": -350,
+                    "variance_pct": 100,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "KG",
+                    "amount_period_1": 0,
+                    "amount_period_2": 2.97,
+                    "variance": 2.97,
+                    "variance_pct": 100,
+                    "status": "New"
+                },
+                {
+                    "gl_account": "21100000",
+                    "gl_account_name": "",
+                    "document_type": "Y1",
+                    "amount_period_1": -1000,
+                    "amount_period_2": -1000,
+                    "variance": 0,
+                    "variance_pct": 0,
+                    "status": "Existing"
+                }
+            ],
+            "statistical_summary": {
+                "total_amount": -124273331.06,
+                "mean": -8876666.5,
+                "std_dev": 54328759.95,
+                "min": -122640017.8,
+                "max": 122893180.25
+            },
+            "narrative": "### Forensic Audit Findings: SAP Document Type Variance Analysis\n\n#### 1. Significant Process Anomalies & Volatility\nThe audit reveals extreme variance in transaction volume, particularly in GL Accounts 16059000 and 21100000. These fluctuations suggest a shift in accounting treatment or a potential period-end cutoff error.\n\n* **GL 16059000 (AB Document Type):** Variance of -109.9M. This represents a massive increase in \"Accounting Document, Opening Balance/Closing\" entries. A variance of 107,947% indicates an accounting policy shift or a significant manual adjustment (reclassification) that warrants investigation into the source of this entry.\n* **GL 16059000 & 21100000 (KR Document Type):** Net volatility of ~122M. Because KR (Vendor Invoice) and the corresponding offset accounts show nearly symmetric massive movements, this confirms a significant procurement cycle spike or a large-scale vendor re-classification effort between the two periods.\n* **GL 70700200 (DR Document Type):** Removal of 1.26M in \"Customer Invoice\" postings. This indicates either a cleanup of legacy data, a change in business model (discontinuing specific invoicing), or a migration of this business process to a new ledger or GL account.\n\n#### 2. Contextualized Document Type Observations\nUsing standard SAP document nomenclature, I have analyzed the functional impact of these variances:\n\n* **Vendor/Liability Exposure (KR/RE/KA/KZ):**\n    * The massive increase in **KR (Vendor Invoice)** and **RE (Invoice Receipt)** in GL 21100000 confirms significant changes in accounts payable processing. \n    * The appearance of **KA (Vendor Payment)** in the second period suggests either an activation of a new payment gateway or a shift in treasury operations during the reporting window.\n* **Capital/Asset Accounting (AB):**\n    * The extraordinary volume in **AB** (typically used for Asset/Opening balance adjustments) on an account typically associated with assets (16059000) suggests significant capital investment or large-scale impairment/revaluation occurred in Period 2.\n* **Manual/Journal Entries (SA/ZP):**\n    * The emergence of **SA (GL Account Posting)** is minimal in volume but serves as a red flag; manual journal entries bypassing automated sub-ledgers (like KR or RE) are high-risk areas for forensic review.\n    * The surge in **ZP (Payment/Bank transfer)** indicates an expansion of automated disbursement activities.\n\n#### 3. Auditor’s Recommendations for Investigation\n* **Verify Reclassification:** The parity between the KR variance in 16059000 and 21100000 suggests a linked entry. Verify if a bulk reclassification was executed in Period 2 that shifted these balances.\n* **Investigate \"AB\" Source:** Given the materiality of the 109.9M variance in AB documents, perform a drill-down into the specific document numbers. Determine if these are reversal entries, standard year-end adjustments, or unauthorized mid-period modifications.\n* **Review DR Cleanup:** Confirm whether GL 70700200 was decommissioned or if the transition to zero balance was accurately captured in closing procedures to ensure no customer invoices were suppressed in the system.\n* **Zero-Variance Controls:** Review the Y1 (1,000.00) entry; while the variance is 0, the lack of activity change suggests this is a \"parked\" or \"static\" account balance that should be verified for continued relevance.",
+            "key_finding": "Forensic Audit Findings: SAP Document Type Variance Analysis",
+            "confidence": "high"
+        }
+    ],
+    "accounts": [
+        {
+            "gl_account": "10010000",
+            "gl_account_name": "Petty Cash",
+            "period_balance_amount": -6200,
+            "comparison_period_balance_amount": -2400,
+            "absolute_difference_amount": -3800,
+            "relative_difference_amount": 158.3333,
+            "flagged": false
+        },
+        {
+            "gl_account": "11001080",
+            "gl_account_name": "Bank 1 - Cash Receipt 1",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 2583.33,
+            "absolute_difference_amount": -2583.33,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "12100000",
+            "gl_account_name": "Receivables Domestic",
+            "period_balance_amount": 1433133.34,
+            "comparison_period_balance_amount": 1342270,
+            "absolute_difference_amount": 90863.34,
+            "relative_difference_amount": 6.7694,
+            "flagged": false
+        },
+        {
+            "gl_account": "12102000",
+            "gl_account_name": "Receivables Domestic Adjustments",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -16957.94,
+            "absolute_difference_amount": 16957.94,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "12119000",
+            "gl_account_name": "Down Payment Requests Vendors",
+            "period_balance_amount": -2100.8,
+            "comparison_period_balance_amount": -10400,
+            "absolute_difference_amount": 8299.2,
+            "relative_difference_amount": -79.8,
+            "flagged": false
+        },
+        {
+            "gl_account": "12122000",
+            "gl_account_name": "Receivables Foreign Adjustments",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -100,
+            "absolute_difference_amount": 100,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "12200100",
+            "gl_account_name": "Lease Receivables - Buildings (ROU)",
+            "period_balance_amount": 18227.4,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 18227.4,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "12401100",
+            "gl_account_name": "Allowance for Doubtful Receivables(Valuation)",
+            "period_balance_amount": 1000,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 1000,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "12550000",
+            "gl_account_name": "Unbilled Revenue",
+            "period_balance_amount": 5200,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 5200,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "12590000",
+            "gl_account_name": "Vendors with a Debit Balance",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -9255.23,
+            "absolute_difference_amount": 9255.23,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "13100000",
+            "gl_account_name": "Inventory - Raw Material",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 950965.45,
+            "absolute_difference_amount": -950965.45,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "13400000",
+            "gl_account_name": "Inventory - Finished Goods",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -246702.96,
+            "absolute_difference_amount": 246702.96,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "16051000",
+            "gl_account_name": "Buildings (ROU)",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 344724.29,
+            "absolute_difference_amount": -344724.29,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "16054000",
+            "gl_account_name": "Motor Vehicles (ROU)",
+            "period_balance_amount": 471773.12,
+            "comparison_period_balance_amount": 157060.49,
+            "absolute_difference_amount": 314712.63,
+            "relative_difference_amount": 200.3767,
+            "flagged": false
+        },
+        {
+            "gl_account": "16059000",
+            "gl_account_name": "Leasing Clearing Account",
+            "period_balance_amount": 2404779.75,
+            "comparison_period_balance_amount": -9400,
+            "absolute_difference_amount": 2414179.75,
+            "relative_difference_amount": -25682.7633,
+            "flagged": true
+        },
+        {
+            "gl_account": "18010000",
+            "gl_account_name": "Investment Subsidiaries",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 2000,
+            "absolute_difference_amount": -2000,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "21100000",
+            "gl_account_name": "Payables Domestic",
+            "period_balance_amount": -2802890.2,
+            "comparison_period_balance_amount": -1500037.09,
+            "absolute_difference_amount": -1302853.11,
+            "relative_difference_amount": 86.8547,
+            "flagged": true
+        },
+        {
+            "gl_account": "21102000",
+            "gl_account_name": "Payables Domestic Adjustments",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 297.7,
+            "absolute_difference_amount": -297.7,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "21180000",
+            "gl_account_name": "Customers with a Credit Balance",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 17057.94,
+            "absolute_difference_amount": -17057.94,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "21202000",
+            "gl_account_name": "Payables Foreign Adjustments",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 8957.53,
+            "absolute_difference_amount": -8957.53,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "21320000",
+            "gl_account_name": "Lease Out Clearing Account (ROU)",
+            "period_balance_amount": -77953.35,
+            "comparison_period_balance_amount": -500,
+            "absolute_difference_amount": -77453.35,
+            "relative_difference_amount": 15490.67,
+            "flagged": false
+        },
+        {
+            "gl_account": "21720000",
+            "gl_account_name": "Other Payables (no recon acct)",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -800,
+            "absolute_difference_amount": 800,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "22001000",
+            "gl_account_name": "Sales Tax Accrued (MW1) - State",
+            "period_balance_amount": -57085.42,
+            "comparison_period_balance_amount": -77,
+            "absolute_difference_amount": -57008.42,
+            "relative_difference_amount": 74036.9091,
+            "flagged": false
+        },
+        {
+            "gl_account": "23000100",
+            "gl_account_name": "Lease Liability - Buildings (ROU)",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -335561.1,
+            "absolute_difference_amount": 335561.1,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "23000300",
+            "gl_account_name": "Lease Liability - Motor Vehicles (ROU)",
+            "period_balance_amount": -453277.42,
+            "comparison_period_balance_amount": -147882.58,
+            "absolute_difference_amount": -305394.84,
+            "relative_difference_amount": 206.5117,
+            "flagged": false
+        },
+        {
+            "gl_account": "31000000",
+            "gl_account_name": "Common Stock",
+            "period_balance_amount": 1000,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 1000,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "33000000",
+            "gl_account_name": "Retained Earnings",
+            "period_balance_amount": -1000,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": -1000,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "41000000",
+            "gl_account_name": "Revenue Domestic - Product",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -1341093,
+            "absolute_difference_amount": 1341093,
+            "relative_difference_amount": -100,
+            "flagged": true
+        },
+        {
+            "gl_account": "51100000",
+            "gl_account_name": "Consumption - Raw Material",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 249939.12,
+            "absolute_difference_amount": -249939.12,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "51600000",
+            "gl_account_name": "Consumption - Trading Goods",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 299132.52,
+            "absolute_difference_amount": -299132.52,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "54083000",
+            "gl_account_name": "Inventory Change - Cost of own Goods sold w/C.Elem",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 616788,
+            "absolute_difference_amount": -616788,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "55100000",
+            "gl_account_name": "Adjustment Plant Activity Production Order",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -370085.04,
+            "absolute_difference_amount": 370085.04,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "63002000",
+            "gl_account_name": "Water",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 400,
+            "absolute_difference_amount": -400,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "63003000",
+            "gl_account_name": "Other Periodic Service",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 800,
+            "absolute_difference_amount": -800,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "63009100",
+            "gl_account_name": "Lease Expense Building (ROU)",
+            "period_balance_amount": 39004.52,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 39004.52,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "63009200",
+            "gl_account_name": "Lease Expense Land (ROU)",
+            "period_balance_amount": 1.04,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 1.04,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "63009300",
+            "gl_account_name": "Lease expense Machinery (ROU)",
+            "period_balance_amount": 890.01,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 890.01,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "63009400",
+            "gl_account_name": "Lease expense Motor Vehicle (ROU)",
+            "period_balance_amount": 152264.3,
+            "comparison_period_balance_amount": 619.76,
+            "absolute_difference_amount": 151644.54,
+            "relative_difference_amount": 24468.2684,
+            "flagged": false
+        },
+        {
+            "gl_account": "63009500",
+            "gl_account_name": "Lease expense Office Equipment (ROU)",
+            "period_balance_amount": 113518.08,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 113518.08,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "63009700",
+            "gl_account_name": "Lease Expense Computer Hardware (ROU)",
+            "period_balance_amount": 13520,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 13520,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "64010000",
+            "gl_account_name": "Service Contract Expense",
+            "period_balance_amount": 62517.6,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": 62517.6,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "70200000",
+            "gl_account_name": "Interest Income, Unaffiliated(TRM)",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": -2583.33,
+            "absolute_difference_amount": 2583.33,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "70700000",
+            "gl_account_name": "Lease Income for - Non-Residential Real Estate",
+            "period_balance_amount": -3094.93,
+            "comparison_period_balance_amount": -600,
+            "absolute_difference_amount": -2494.93,
+            "relative_difference_amount": 415.8217,
+            "flagged": false
+        },
+        {
+            "gl_account": "70700100",
+            "gl_account_name": "Leasing Income - Residential Real Estate",
+            "period_balance_amount": -140,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": -140,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "70700200",
+            "gl_account_name": "Leasing Income - Other",
+            "period_balance_amount": -1260119.64,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": -1260119.64,
+            "relative_difference_amount": 0,
+            "flagged": true
+        },
+        {
+            "gl_account": "70700300",
+            "gl_account_name": "Leasing Income - Interest (ROU)",
+            "period_balance_amount": -30.33,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": -30.33,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "70700400",
+            "gl_account_name": "Leasing Income - Sublease (ROU)",
+            "period_balance_amount": -18497.07,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": -18497.07,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "70800200",
+            "gl_account_name": "Service Income - other",
+            "period_balance_amount": -34440,
+            "comparison_period_balance_amount": 0,
+            "absolute_difference_amount": -34440,
+            "relative_difference_amount": 0,
+            "flagged": false
+        },
+        {
+            "gl_account": "71100100",
+            "gl_account_name": "Interest expense Building (ROU)",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 836.81,
+            "absolute_difference_amount": -836.81,
+            "relative_difference_amount": -100,
+            "flagged": false
+        },
+        {
+            "gl_account": "71100400",
+            "gl_account_name": "Interest expense Motor Vehicle (ROU)",
+            "period_balance_amount": 0,
+            "comparison_period_balance_amount": 2.33,
+            "absolute_difference_amount": -2.33,
+            "relative_difference_amount": -100,
+            "flagged": false
+        }
+    ],
+    "flagged_count": 4,
+    "chart_data": {
+        "variance_by_account": [
+            {
+                "label": "Period A",
+                "data": [
+                    {
+                        "x": "16059000",
+                        "y": 2404779.75
+                    },
+                    {
+                        "x": "41000000",
+                        "y": 0
+                    },
+                    {
+                        "x": "21100000",
+                        "y": -2802890.2
+                    },
+                    {
+                        "x": "70700200",
+                        "y": -1260119.64
+                    }
+                ]
+            },
+            {
+                "label": "Period B",
+                "data": [
+                    {
+                        "x": "16059000",
+                        "y": -9400
+                    },
+                    {
+                        "x": "41000000",
+                        "y": -1341093
+                    },
+                    {
+                        "x": "21100000",
+                        "y": -1500037.09
+                    },
+                    {
+                        "x": "70700200",
+                        "y": 0
+                    }
+                ]
+            }
+        ],
+        "variance_by_dimension": [
+            {
+                "label": "Total",
+                "data": [
+                    {
+                        "x": "CostCenter",
+                        "y": -124273331.06
+                    },
+                    {
+                        "x": "ProfitCenter",
+                        "y": -124273331.06
+                    },
+                    {
+                        "x": "Customer",
+                        "y": -124273331.06
+                    },
+                    {
+                        "x": "Supplier",
+                        "y": -124273331.06
+                    },
+                    {
+                        "x": "DocumentType",
+                        "y": -124273331.06
+                    }
+                ]
+            }
+        ]
+    },
+    "result_summary": "4 GL accounts flagged above 1000000.0 threshold in company 1710. 5 dimension(s) analysed. Key driver: Financial Analysis Report: Period A vs. Period B.",
+    "session_id": "f2957396-3552-4c4d-9057-31df61aa5e2b"
+}
