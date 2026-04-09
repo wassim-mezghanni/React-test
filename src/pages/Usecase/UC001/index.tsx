@@ -173,7 +173,7 @@ export default function UC001() {
             {/* GL Accounts tab */}
             {activeTab === 'gl_accounts' && (
               <div className="animate-in fade-in duration-500">
-                <div className="bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/10">
+                <div className="bg-surface-container-low rounded-2xl p-6 border border-outline-variant/10">
                   <DataTable<AccountRow & { _id: number }>
                     subtitle={`${result.accounts.length} accounts`}
                     title="GL Account Balances"

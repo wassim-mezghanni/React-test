@@ -51,7 +51,7 @@ export function AgentDimensionPanel({ agent, usecaseId, className = '' }: AgentD
       </SectionCard>
 
       {/* Data table */}
-      <div className="bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/10">
+      <div className="bg-surface-container-low rounded-2xl p-6 border border-outline-variant/10">
         <DataTable
           subtitle={humanize(agent.dimension)}
           title="Detail Records"
